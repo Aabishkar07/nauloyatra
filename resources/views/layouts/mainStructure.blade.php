@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/user_css/home.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/user_css/package.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/user_css/profile.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/user_css/modern-user.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_css/admin-package.css') }}">
 

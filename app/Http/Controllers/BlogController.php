@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
 {
+    // for admin show blog create form
+    public function create(){
+        return view('admin.addBlog-create');
+    }
+
     // for admin showBlogs
     public function showBlogs(){
         $blogs = Blog::orderBy('created_at','DESC')->get();
@@ -44,7 +49,7 @@ class BlogController extends Controller
         $validator = Validator::make($request->all(),  $rules);
         //to show massages | check validate
         if ($validator->fails()) {
-            return redirect()->route('admin.addBlog')->withErrors($validator)->withInput();
+            return redirect()->route('admin.addBlog.create')->withErrors($validator)->withInput();
         }
 
         // for ck edotor
@@ -117,7 +122,7 @@ class BlogController extends Controller
         if($request->blogImage !=""){
 
             //delete old image
-            $imagePath = public_path('upload/blog/'.$blog->image);
+            $imagePath = public_path('image/uploads/blog/'.$blog->image);
             //check image is it defalt or not
             if($blog->image !== 'empty-image.png' && File::exists( $imagePath)){
                 File::delete( $imagePath );
@@ -150,7 +155,7 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
 
         //delete image
-        $imagePath = public_path('upload/blog/'.$blog->image);
+        $imagePath = public_path('image/uploads/blog/'.$blog->image);
         //check image is it defalt or not and delete
         if($blog->image !== 'empty-image.png' && File::exists( $imagePath)){
             File::delete( $imagePath );

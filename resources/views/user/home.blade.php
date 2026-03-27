@@ -369,73 +369,60 @@
                 <div class="title-divider"></div>
             </div>
 
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="testimonial-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="modern-card p-4 h-100">
+                        <div class="testimonial-rating mb-3 text-warning">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                         </div>
-                        <p class="testimonial-text">"NauloYatra planned our Sri Lanka trip perfectly. Everything was smooth
-                            and the team was always responsive to our needs."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="https://picsum.photos/seed/user1/100/100.jpg" alt="Sarah Johnson">
-                        </div>
-                        <div class="author-info">
-                            <h4 class="author-name">Sarah Johnson</h4>
-                            <p class="author-location">United Kingdom</p>
+                        <p class="text-muted mb-4 italic" style="font-style: italic;">"NauloYatra planned our Sri Lanka trip
+                            perfectly. Everything was smooth and the team was always responsive to our needs."</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="https://picsum.photos/seed/user1/100/100.jpg" alt="Sarah Johnson"
+                                class="rounded-circle shadow-sm" style="width: 50px; height: 50px;">
+                            <div>
+                                <h4 class="h6 fw-bold mb-0">Sarah Johnson</h4>
+                                <p class="small text-muted mb-0">United Kingdom</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="testimonial-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
+                <div class="col-md-4">
+                    <div class="modern-card p-4 h-100">
+                        <div class="testimonial-rating mb-3 text-warning">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
                         </div>
-                        <p class="testimonial-text">"Our cultural tour was exceptional! Great guide, amazing sights, and
-                            authentic local experiences."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="https://picsum.photos/seed/user2/100/100.jpg" alt="Michael Chen">
-                        </div>
-                        <div class="author-info">
-                            <h4 class="author-name">Michael Chen</h4>
-                            <p class="author-location">Singapore</p>
+                        <p class="text-muted mb-4 italic" style="font-style: italic;">"Our cultural tour was exceptional!
+                            Great guide, amazing sights, and authentic local experiences."</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="https://picsum.photos/seed/user2/100/100.jpg" alt="Michael Chen"
+                                class="rounded-circle shadow-sm" style="width: 50px; height: 50px;">
+                            <div>
+                                <h4 class="h6 fw-bold mb-0">Michael Chen</h4>
+                                <p class="small text-muted mb-0">Singapore</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="testimonial-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
+                <div class="col-md-4">
+                    <div class="modern-card p-4 h-100">
+                        <div class="testimonial-rating mb-3 text-warning">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                         </div>
-                        <p class="testimonial-text">"Clean transport, comfortable hotels, and an itinerary that felt
-                            local—not touristy. Highly recommended!"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="https://picsum.photos/seed/user3/100/100.jpg" alt="Emma Rodriguez">
-                        </div>
-                        <div class="author-info">
-                            <h4 class="author-name">Emma Rodriguez</h4>
-                            <p class="author-location">Australia</p>
+                        <p class="text-muted mb-4 italic" style="font-style: italic;">"Clean transport, comfortable hotels,
+                            and an itinerary that felt local—not touristy. Highly recommended!"</p>
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="https://picsum.photos/seed/user3/100/100.jpg" alt="Emma Rodriguez"
+                                class="rounded-circle shadow-sm" style="width: 50px; height: 50px;">
+                            <div>
+                                <h4 class="h6 fw-bold mb-0">Emma Rodriguez</h4>
+                                <p class="small text-muted mb-0">Australia</p>
+                            </div>
                         </div>
                     </div>
                 </div>

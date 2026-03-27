@@ -1,81 +1,60 @@
+<nav id="modernSidebar">
+    <a href="{{route('admin.home')}}" class="sidebar-brand">
+        <img src="{{ asset('image/mainlogo.png') }}" alt="Agency logo" width="36" height="36">
+        <span>NauloYatra</span>
+    </a>
 
-<div class="container-fluid">
-    <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse position-fixed">
-            <h2 class="mt-3">
-                <img src="{{ asset('image/mainlogo.png') }}" alt="Agency logo" width="60px">
-               NauloYatra
-            </h2>
-            <pre>Admin Panel</pre>
-            <div class="position-sticky">
-                <ul class="nav flex-column SideMenuPosition">
-                    <li class="nav-item list-bg">
-                        <a class="nav-link font-style {{ request()->is('admin/dashboard') ? 'active' : '' }}" aria-current="page" href="{{route('admin.home')}}">
-                            <img src="{{ asset('image/help-tools/dashboard.png') }}" class="dashbord-icon" alt="dashbord-icon">
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item list-bg">
-                        <a class="nav-link font-style {{ request()->is('admin/setting') ? 'active' : '' }}" href="{{route('admin.setting')}}">
-                            <img src="{{ asset('image/help-tools/setting.png') }}" class="dashbord-icon" alt="dashbord-icon">
-                            Settings
-                        </a>
-                    </li>
-                    <li class="nav-item list-bg ">
-                        <a class="nav-link font-style {{ request()->is('admin/manageUsers') ? 'active' : '' }}" href="{{route('admin.manageUsers')}}">
-                            <img src="{{ asset('image/help-tools/manage-users.png') }}" class="dashbord-icon" alt="dashbord-icon">
-                            Manage Users
-                        </a>
-                    </li>
+    <div class="sidebar-nav flex-grow-1">
+        <a class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}" href="{{route('admin.home')}}">
+            <i class="bi bi-grid-1x2"></i>
+            Dashboard
+        </a>
+        
+        <div class="sidebar-divider"></div>
 
-                    <hr class="border border-2 opacity-100">
+        <a class="nav-link {{ request()->is('admin/manageUsers') ? 'active' : '' }}" href="{{route('admin.manageUsers')}}">
+            <i class="bi bi-people"></i>
+            Manage Users
+        </a>
+        <a class="nav-link {{ request()->is('admin/Booking*') ? 'active' : '' }}" href="{{route('admin.booking')}}">
+            <i class="bi bi-calendar-check"></i>
+            Bookings
+        </a>
+        <a class="nav-link {{ request()->is('admin/massage*') ? 'active' : '' }}" href="{{route('admin.massage')}}">
+            <i class="bi bi-envelope"></i>
+            Messages
+        </a>
+        <a class="nav-link {{ request()->is('admin/review*') ? 'active' : '' }}" href="{{route('admin.review')}}">
+            <i class="bi bi-star"></i>
+            Reviews
+        </a>
 
-                    <li class="nav-item list-bg ">
-                        <a class="nav-link font-style {{ request()->is('admin/Booking') ? 'active' : '' }}" href="{{route('admin.booking')}}">
-                            <img src="{{ asset('image/help-tools/booking.png') }}" class="dashbord-icon" alt="dashbord-icon">
-                            Bookings
-                        </a>
-                    </li>
-                    <li class="nav-item list-bg">
-                        <a class="nav-link font-style {{ request()->is('admin/massage') ? 'active' : '' }}" href="{{route('admin.massage')}}">
-                            <img src="{{ asset('image/help-tools/massages.png') }}" class="dashbord-icon" alt="dashbord-icon">
-                            Messages
-                        </a>
-                    </li>
-                    <li class="nav-item list-bg">
-                        <a class="nav-link font-style {{ request()->is('admin/review') ? 'active' : '' }}" href="{{route('admin.review')}}">
-                            <img src="{{ asset('image/help-tools/Reviews.png') }}" class="dashbord-icon" alt="dashbord-icon">
-                            Reviews
-                        </a>
-                    </li>
+        <div class="sidebar-divider"></div>
+        
+        <a class="nav-link {{ request()->is('admin/showPackage*') || request()->is('admin/addPackage*') || request()->is('package/page*') ? 'active' : '' }}" href="{{route('admin.travelPackage.show')}}">
+            <i class="bi bi-map"></i>
+            Travel Packages
+        </a>
+        <a class="nav-link {{ request()->is('admin/addBlog*') || request()->is('admin/*/editBlog') ? 'active' : '' }}" href="{{route('admin.addBlog')}}">
+            <i class="bi bi-journal-text"></i>
+            Blog Posts
+        </a>
+        
+        <div class="sidebar-divider"></div>
 
-                    <hr class="border border-2 opacity-100">
-
-                    <li class="nav-item list-bg">
-                        <a class="nav-link font-style {{ request()->is('admin/showPackage') ? 'active' : '' }}" href="{{route('admin.travelPackage.show')}}">
-                            <img src="{{ asset('image/help-tools/add-packages.png') }}" class="dashbord-icon" alt="dashbord-icon">
-                            Travel Packages
-                        </a>
-                    </li>
-                    <li class="nav-item list-bg">
-                        <a class="nav-link font-style {{ request()->is('admin/addBlog') ? 'active' : '' }}" href="{{route('admin.addBlog')}}">
-                            <img src="{{ asset('image/help-tools/add-blog-post.png') }}" class="dashbord-icon" alt="dashbord-icon">
-                            Blog Posts
-                        </a>
-                    </li>
-
-                    <hr class="border border-2 opacity-100">
-
-                    <li class="nav-item" style="margin-top: 2px; font-weight: bolder;">
-                         <!-- Authentication -->
-                         <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <img src="{{ asset('image/help-tools/log-out.png') }}" class="dashbord-icon position-absolute ms-3" alt="dashbord-icon">
-                            <button type="submit" class="btn nav-link ms-5">{{ __('Log Out') }}</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <a class="nav-link {{ request()->is('admin/setting') ? 'active' : '' }}" href="{{route('admin.setting')}}">
+            <i class="bi bi-gear"></i>
+            Settings
+        </a>
     </div>
-</div>
+
+    <div class="sidebar-footer mt-auto p-3">
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="nav-link border-0 bg-transparent w-100 text-start text-danger" style="margin: 0; padding: 10px 16px;">
+                <i class="bi bi-box-arrow-right text-danger"></i>
+                Log Out
+            </button>
+        </form>
+    </div>
+</nav>

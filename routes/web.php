@@ -7,6 +7,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\TravelPackageController;
 use App\Http\Controllers\UserMassageController;
+use App\Http\Controllers\UserReviewController;
 
 
 //for user navigationbar  
@@ -68,7 +69,8 @@ Route::controller(UserMassageController::class)->group(function(){
 
 // for admin panel navigation
 Route::view('/admin/massage', 'admin.masage')->name('admin.massage');
-Route::view('/admin/review', 'admin.review')->name('admin.review');
+Route::get('/admin/review', [UserReviewController::class, 'index'])->name('admin.review');
+Route::delete('/admin/review/{id}', [UserReviewController::class, 'destroy'])->name('admin.review.delete');
 Route::view('/admin/addBlog', 'admin.addBlog')->name('admin.addBlog');
 Route::get('/admin/dashboard', [AdminController::class, 'indexAdminDashboard'])->name('admin.home');
 // for admin setting
@@ -97,6 +99,7 @@ Route::controller(BookingController::class)->group(function(){
 
 // for admin blog post (funtions start)
 Route::controller(BlogController::class)->group(function(){
+    Route::get('/admin/addBlog/create', 'create')->name('admin.addBlog.create');
     Route::post('/admin/addBlog', 'store')->name('admin.add.blog');
     Route::get('/admin/addBlog', 'showBlogs')->name('admin.addBlog');
     Route::get('/admin/{blogPost}/editBlog', 'edit')->name('admin.editBlog');

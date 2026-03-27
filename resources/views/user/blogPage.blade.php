@@ -24,24 +24,15 @@
 </div>
 
 <!-- Article Header -->
-<section class="article-header">
+<section class="article-header py-5" style="background: var(--user-gray-soft); margin-top: 100px;">
     <div class="container">
-        <div class="article-meta mt-3">
-            <span class="article-date">
-                <i class="bi bi-calendar3"></i>
-                {{ \Carbon\Carbon::parse($blog->created_at)->format('d M, Y') }}
-            </span>
-            <span class="article-category">
-                <i class="bi bi-tag"></i>
-                Travel Story
-            </span>
-            <span class="read-time">
-                <i class="bi bi-clock"></i>
-                5 min read
-            </span>
+        <div class="user-badge mb-3">Travel Journal</div>
+        <h1 class="display-3 fw-bold mb-4" style="letter-spacing: -0.04em; color: var(--user-dark); line-height: 1.1;">{{ $blog->title }}</h1>
+        <div class="article-meta d-flex align-items-center gap-4 text-muted border-top pt-4">
+            <span><i class="bi bi-calendar3 me-2 text-primary"></i> {{ \Carbon\Carbon::parse($blog->created_at)->format('d M, Y') }}</span>
+            <span><i class="bi bi-clock me-2 text-primary"></i> 5 min read</span>
+            <span class="ms-auto"><i class="bi bi-tag me-2 text-primary"></i> Travel Story</span>
         </div>
-        <h1 class="article-title">{{ $blog->title }}</h1>
-        <p class="article-subtitle">A journey through the wonders of Sri Lanka</p>
     </div>
 </section>
 
@@ -100,14 +91,17 @@
             <!-- Sidebar -->
             <aside class="article-sidebar">
                 <!-- Author Info -->
-                <div class="sidebar-card author-card">
-                    <div class="author-avatar">
-                        <img src="{{ asset('image/uploads/blog/author-avatar.png') }}" alt="Author">
+                <div class="modern-card p-4 author-card shadow-sm">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="author-avatar" style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden;">
+                            <img src="{{ asset('image/uploads/blog/author-avatar.png') }}" alt="Author" class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h4 class="h6 fw-bold mb-1">Travel Expert</h4>
+                            <p class="small text-muted mb-0">NauloYatra Guide</p>
+                        </div>
                     </div>
-                    <div class="author-info">
-                        <h4>Travel Expert</h4>
-                        <p>Sharing stories and insights from the beautiful island of Sri Lanka</p>
-                    </div>
+                    <p class="small text-muted mb-0">Sharing stories and insights from the beautiful island of Sri Lanka.</p>
                 </div>
 
                 <!-- Recent Posts -->
@@ -135,14 +129,12 @@
                 </div>
 
                 <!-- Categories -->
-                <div class="sidebar-card categories">
-                    <h3>Categories</h3>
-                    <ul class="category-list">
-                        <li><a href="#">Travel Stories <span>(12)</span></a></li>
-                        <li><a href="#">Culture & Heritage <span>(8)</span></a></li>
-                        <li><a href="#">Adventure <span>(15)</span></a></li>
-                        <li><a href="#">Food & Cuisine <span>(6)</span></a></li>
-                        <li><a href="#">Beaches <span>(9)</span></a></li>
+                <div class="modern-card p-4 categories shadow-sm mt-4">
+                    <h3 class="h6 fw-bold mb-3 text-uppercase" style="letter-spacing: 0.05em;">Categories</h3>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2 pb-2 border-bottom"><a href="#" class="text-decoration-none text-muted d-flex justify-content-between small">Travel Stories <span>(12)</span></a></li>
+                        <li class="mb-2 pb-2 border-bottom"><a href="#" class="text-decoration-none text-muted d-flex justify-content-between small">Culture <span>(8)</span></a></li>
+                        <li class="mb-0"><a href="#" class="text-decoration-none text-muted d-flex justify-content-between small">Adventure <span>(15)</span></a></li>
                     </ul>
                 </div>
             </aside>
@@ -154,21 +146,23 @@
 <section class="related-posts">
     <div class="container">
         <h2 class="section-title">More Stories You Might Like</h2>
-        <div class="related-grid">
+        <div class="related-grid row g-4">
             @if (isset($relatedBlogs) && $relatedBlogs->isNotEmpty())
                 @foreach ($relatedBlogs->take(3) as $related)
-                    <div class="related-card">
-                        <div class="related-image">
-                            @if ($related->image != "")
-                                <img src="{{ asset('image/uploads/blog/'.$related->image) }}" alt="{{ $related->title }}">
-                            @else
-                                <img src="{{ asset('image/uploads/blog/empty-image.png') }}" alt="{{ $related->title }}">
-                            @endif
-                        </div>
-                        <div class="related-content">
-                            <h4>{{ $related->title }}</h4>
-                            <p>{{ \Carbon\Carbon::parse($related->created_at)->format('d M, Y') }}</p>
-                            <a href="{{ route('blog.page', $related->id) }}" class="related-link">Read More <i class="bi bi-arrow-right"></i></a>
+                    <div class="col-md-4">
+                        <div class="modern-card">
+                            <div class="related-image img-zoom-container" style="height: 200px;">
+                                @if ($related->image != "")
+                                    <img src="{{ asset('image/uploads/blog/'.$related->image) }}" alt="{{ $related->title }}" class="w-100 h-100 object-fit-cover">
+                                @else
+                                    <img src="{{ asset('image/uploads/blog/empty-image.png') }}" alt="{{ $related->title }}" class="w-100 h-100 object-fit-cover">
+                                @endif
+                            </div>
+                            <div class="related-content p-4">
+                                <h4 class="h6 fw-bold mb-2">{{ $related->title }}</h4>
+                                <p class="small text-muted mb-3">{{ \Carbon\Carbon::parse($related->created_at)->format('d M, Y') }}</p>
+                                <a href="{{ route('blog.page', $related->id) }}" class="text-decoration-none small fw-bold text-primary">Read More <i class="bi bi-arrow-right"></i></a>
+                            </div>
                         </div>
                     </div>
                 @endforeach

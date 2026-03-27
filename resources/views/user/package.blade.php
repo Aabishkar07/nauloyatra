@@ -7,11 +7,12 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="packages-hero">
+<section class="modern-hero">
     <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title">Discover Tours & Travels Packages</h1>
-            <p class="hero-subtitle">Explore our curated travel packages and experience the pearl of the Indian Ocean</p>
+        <div class="hero-content text-center">
+            <div class="user-badge mb-3">Explore Sri Lanka</div>
+            <h1 class="hero-title-premium">Discover Your Next Adventure</h1>
+            <p class="hero-subtitle-premium mx-auto">Explore our curated travel packages and experience the pearl of the Indian Ocean</p>
             <div class="hero-stats">
                 <div class="stat-item">
                     <span class="stat-number">{{ $travelPackage->count() }}</span>
@@ -25,7 +26,7 @@
                 <div class="stat-divider"></div>
                 <div class="stat-item">
                     <span class="stat-number">5000+</span>
-                    <span class="stat-label">Happy Travelers</span>
+                    <span class="stat-label">Travelers</span>
                 </div>
             </div>
         </div>
@@ -38,10 +39,10 @@
         <div class="search-layout">
             <!-- Filters Sidebar -->
             <aside class="filters-sidebar">
-                <div class="filter-card">
+                <div class="glass-sidebar">
                     <h3 class="filter-title">
-                        <i class="bi bi-funnel"></i>
-                        Search Tours
+                        <i class="bi bi-funnel text-primary"></i>
+                        Filter Tours
                     </h3>
                     
                     <form action="{{ route('user.travelPackage.show') }}" method="get" class="filter-form">
@@ -103,7 +104,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="filter-btn">
+                        <button type="submit" class="btn-premium btn-premium-primary w-100 mt-4">
                             <i class="bi bi-search"></i>
                             Search Packages
                         </button>
@@ -138,26 +139,16 @@
                 <div class="packages-grid" id="packagesGrid">
                     @if ($travelPackage->isNotEmpty())
                         @foreach ($travelPackage as $package)
-                            <div class="package-card">
-                                <div class="package-image">
+                            <div class="modern-card">
+                                <div class="package-image img-zoom-container">
                                     @if ($package->image_1 != "")
-                                        <img src="{{ asset('image/uploads/travelPackage/'.$package->image_1) }}" alt="{{ $package->package_name }}">
+                                        <img src="{{ asset('image/uploads/travelPackage/'.$package->image_1) }}" alt="{{ $package->package_name }}" class="w-100">
                                     @else
-                                        <img src="{{ asset('image/uploads/travelPackage/empty-image.png') }}" alt="{{ $package->package_name }}">
+                                        <img src="{{ asset('image/uploads/travelPackage/empty-image.png') }}" alt="{{ $package->package_name }}" class="w-100">
                                     @endif
                                     <div class="package-badge">{{ $package->tour_type }}</div>
-                                    <div class="package-overlay">
-                                        <button class="quick-view-btn">
-                                            <i class="bi bi-eye"></i>
-                                            Quick View
-                                        </button>
-                                    </div>
                                     <div class="package-rating">
                                         <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-half"></i>
                                         <span>4.5</span>
                                     </div>
                                 </div>
@@ -234,8 +225,8 @@
                                             <span class="price-note">per person</span>
                                         </div>
                                         <div class="package-actions">
-                                            <a href="{{ route('user.packagePage', $package->id) }}" class="package-btn">
-                                                View Details
+                                            <a href="{{ route('user.packagePage', $package->id) }}" class="btn-premium btn-premium-primary py-2 px-3">
+                                                Details
                                                 <i class="bi bi-arrow-right"></i>
                                             </a>
                                             <button class="wishlist-btn">

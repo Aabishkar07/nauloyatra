@@ -1,11 +1,12 @@
-@extends('layouts/admin-layouts/main-structure')
+@extends('layouts.admin-layouts.main-structure')
 
 @section('admincontent')
-    <div class="container-fluid">
+<div class="container-fluid">
+    {{-- Page Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
         <div>
-            <h2 class="h3 mb-0 fw-bold text-dark">Edit Blog Post</h2>
-            <p class="text-muted small mb-0 mt-1">Modify article content and cover image</p>
+            <h2 class="h3 mb-0 fw-bold text-dark">Create Blog Post</h2>
+            <p class="text-muted small mb-0 mt-1">Write and publish a new article</p>
         </div>
         <a href="{{ route('admin.addBlog') }}" class="btn btn-outline-secondary shadow-sm">
             <i class="bi bi-arrow-left me-1"></i> Back to Blog Posts
@@ -30,15 +31,7 @@
         </div>
     @endif
 
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 rounded-3 mb-4" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    <form action="{{ route('admin.updateBlog', $blog->id) }}" method="post" enctype="multipart/form-data">
-        @method('put')
+    <form action="{{ route('admin.add.blog') }}" method="post" enctype="multipart/form-data">
         @csrf
         
         <div class="row g-4">
@@ -53,14 +46,16 @@
                     </div>
                     <div class="admin-card-body">
                         <div class="mb-4">
-                            <label for="blogTitle" class="form-label fw-bold small text-muted text-uppercase tracking-wider">Post Title <span class="text-danger">*</span></label>
-                            <input type="text" name="blogTitle" value="{{ old('blogTitle', $blog->title) }}" 
-                                   class="form-control-modern" id="blogTitle">
+                            <label for="blogTitle" class="form-label fw-bold">Post Title <span class="text-danger">*</span></label>
+                            <input type="text" name="blogTitle" value="{{ old('blogTitle') }}" 
+                                   class="form-control-modern" id="blogTitle" 
+                                   placeholder="Enter an engaging title for your post">
                         </div>
                         
                         <div class="mb-0">
-                            <label for="blogDescription" class="form-label fw-bold small text-muted text-uppercase tracking-wider">Description / Content <span class="text-danger">*</span></label>
-                            <textarea name="description" class="form-control-modern" id="blogDescription" rows="15">{{ old('description', $blog->discription) }}</textarea>
+                            <label for="blogDescription" class="form-label fw-bold">Description / Content <span class="text-danger">*</span></label>
+                            <textarea name="description" class="form-control-modern" id="blogDescription" rows="15" 
+                                      placeholder="Write your blog content here...">{{ old('description') }}</textarea>
                             <div class="mt-2 small text-info">
                                 <i class="bi bi-info-circle me-1"></i> Press <code>Windows + .</code> to add emojis inside the editor
                             </div>
@@ -70,7 +65,7 @@
             </div>
             
             <div class="col-xl-4">
-                <!-- Current Media Card -->
+                <!-- Media Card -->
                 <div class="admin-card mb-4 mt-xl-0">
                     <div class="admin-card-header">
                         <div class="d-flex align-items-center gap-2">
@@ -79,23 +74,11 @@
                         </div>
                     </div>
                     <div class="admin-card-body">
-                        <div class="mb-4 text-center bg-light p-3 rounded-3 border">
-                            @if ($blog->image != "")
-                                <img src="{{ asset('image/uploads/blog/'.$blog->image) }}" 
-                                     alt="Current Cover" class="img-fluid rounded shadow-sm" style="max-height: 200px; object-fit: cover;">
-                            @else
-                                <div class="py-5 text-muted">
-                                    <i class="bi bi-image fs-1 d-block mb-2"></i>
-                                    No image set
-                                </div>
-                            @endif
-                        </div>
-                        
                         <div class="mb-3">
-                            <label for="blogImage" class="form-label fw-bold small text-muted text-uppercase tracking-wider">Change Feature Image</label>
+                            <label for="blogImage" class="form-label fw-bold small text-muted">Feature Image</label>
                             <input type="file" name="blogImage" class="form-control-modern" id="blogImage">
                             <div class="mt-2 text-muted small">
-                                Selecting a new image will replace the current one.
+                                Recommended size: 1200x630px. Max size: 10MB.
                             </div>
                         </div>
                     </div>
@@ -105,13 +88,13 @@
                 <div class="admin-card sticky-top" style="top: 2rem; z-index: 10;">
                     <div class="admin-card-header">
                         <div class="d-flex align-items-center gap-2">
-                            <i class="bi bi-check2-circle text-primary"></i>
-                            <span>Save Changes</span>
+                            <i class="bi bi-send text-primary"></i>
+                            <span>Publishing</span>
                         </div>
                     </div>
                     <div class="admin-card-body d-grid gap-3">
                         <button type="submit" class="btn btn-modern btn-modern-primary btn-lg">
-                            <i class="bi bi-save2 me-2"></i> Update Post
+                            <i class="bi bi-cloud-arrow-up-fill me-2"></i> Publish Post
                         </button>
                         <a href="{{ route('admin.addBlog') }}" class="btn btn-outline-secondary btn-modern">
                             Cancel
@@ -121,5 +104,5 @@
             </div>
         </div>
     </form>
-    </div>
+</div>
 @endsection

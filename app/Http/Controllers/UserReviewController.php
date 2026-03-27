@@ -12,7 +12,8 @@ class UserReviewController extends Controller
      */
     public function index()
     {
-        //
+        $reviews = userReview::orderBy('created_at', 'desc')->get();
+        return view('admin.review', compact('reviews'));
     }
 
     /**
@@ -58,8 +59,10 @@ class UserReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(userReview $userReview)
+    public function destroy($id)
     {
-        //
+        $review = userReview::findOrFail($id);
+        $review->delete();
+        return redirect()->back()->with('success', 'Review deleted successfully.');
     }
 }
