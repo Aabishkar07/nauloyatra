@@ -34,7 +34,7 @@
                             <span class="user-badge">{{ $travelPackage->tour_type }}</span>
                             <span class="text-muted"><i class="bi bi-clock me-1"></i> {{ $travelPackage->duration }}
                                 Days</span>
-                            <span class="text-muted"><i class="bi bi-geo-alt me-1"></i> Sri Lanka</span>
+                            <span class="text-muted"><i class="bi bi-geo-alt me-1"></i> Nepal</span>
                         </div>
                         <h1 class="display-4 fw-bold mb-3" style="letter-spacing: -0.03em; color: var(--user-dark);">
                             {{ $travelPackage->package_name }}

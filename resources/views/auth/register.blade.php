@@ -1,66 +1,130 @@
 <x-guest-layout>
+    <a href="{{ route('home') }}" class="auth-back-btn">
+        <i class="bi bi-arrow-left"></i> Back to Home
+    </a>
+    <h1 class="auth-heading">Create account</h1>
+    <p class="auth-subheading">Join NauloYatra and start exploring Nepal</p>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        {{-- Name --}}
+        <div class="form-group">
+            <label class="form-label" for="name">Full Name</label>
+            <div class="input-wrapper">
+                <i class="bi bi-person input-icon"></i>
+                <input id="name" class="form-input" type="text" name="name"
+                       value="{{ old('name') }}" required autofocus autocomplete="name"
+                       placeholder="John Doe">
+            </div>
+            @error('name')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        {{-- Email --}}
+        <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <div class="input-wrapper">
+                <i class="bi bi-envelope input-icon"></i>
+                <input id="email" class="form-input" type="email" name="email"
+                       value="{{ old('email') }}" required autocomplete="username"
+                       placeholder="you@example.com">
+            </div>
+            @error('email')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
         </div>
 
-         <!-- user_country -->
-         <div>
-            <x-input-label for="user_country" :value="__('Country')" />
-            <x-text-input id="user_country" class="block mt-1 w-full" type="text" name="user_country" :value="old('user_country')" required autofocus autocomplete="user_country" />
-            <x-input-error :messages="$errors->get('user_country')" class="mt-2" />
+        {{-- Country & Phone (side by side) --}}
+        <div class="form-row">
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="user_country">Country</label>
+                <div class="input-wrapper">
+                    <i class="bi bi-globe input-icon"></i>
+                    <input id="user_country" class="form-input" type="text" name="user_country"
+                           value="{{ old('user_country') }}" required placeholder="Nepal">
+                </div>
+                @error('user_country')
+                    <p class="field-error">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="phone_number">Phone</label>
+                <div class="input-wrapper">
+                    <i class="bi bi-telephone input-icon"></i>
+                    <input id="phone_number" class="form-input" type="text" name="phone_number"
+                           value="{{ old('phone_number') }}" required placeholder="+977 98XXXXXXXX">
+                </div>
+                @error('phone_number')
+                    <p class="field-error">{{ $message }}</p>
+                @enderror
+            </div>
         </div>
 
-        <!-- phone number -->
-        <div>
-            <x-input-label for="phone_number" :value="__('phone_number')" />
-            <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required autofocus autocomplete="phone_number" />
-            <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
+        <div style="margin-top:18px;"></div>
+
+        {{-- Password --}}
+        <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div class="input-wrapper">
+                <i class="bi bi-lock input-icon"></i>
+                <input id="password" class="form-input" type="password" name="password"
+                       required autocomplete="new-password" placeholder="Min. 8 characters">
+                <button type="button" class="input-toggle" onclick="togglePwd('password', this)">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
+            @error('password')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        {{-- Confirm Password --}}
+        <div class="form-group">
+            <label class="form-label" for="password_confirmation">Confirm Password</label>
+            <div class="input-wrapper">
+                <i class="bi bi-lock-fill input-icon"></i>
+                <input id="password_confirmation" class="form-input" type="password"
+                       name="password_confirmation" required autocomplete="new-password"
+                       placeholder="Repeat your password">
+                <button type="button" class="input-toggle" onclick="togglePwd('password_confirmation', this)">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
+            @error('password_confirmation')
+                <p class="field-error">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        {{-- Terms --}}
+        <div class="form-check" style="margin-bottom:20px;">
+            <input id="terms" type="checkbox" required>
+            <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+        <button type="submit" class="btn-auth">
+            <i class="bi bi-person-plus" style="margin-right:6px;"></i>
+            Create Account
+        </button>
     </form>
+
+    <p class="auth-footer">
+        Already have an account? <a href="{{ route('login') }}">Sign in</a>
+    </p>
+
+    <script>
+        function togglePwd(id, btn) {
+            const input = document.getElementById(id);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'bi bi-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'bi bi-eye';
+            }
+        }
+    </script>
 </x-guest-layout>

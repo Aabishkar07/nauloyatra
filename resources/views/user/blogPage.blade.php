@@ -62,7 +62,7 @@
                 <div class="article-footer">
                     <div class="article-tags">
                         <span class="tag-title">Tags:</span>
-                        <a href="#" class="tag">Sri Lanka</a>
+                        <a href="#" class="tag">Nepal</a>
                         <a href="#" class="tag">Travel</a>
                         <a href="#" class="tag">Adventure</a>
                         <a href="#" class="tag">Culture</a>
@@ -101,7 +101,7 @@
                             <p class="small text-muted mb-0">NauloYatra Guide</p>
                         </div>
                     </div>
-                    <p class="small text-muted mb-0">Sharing stories and insights from the beautiful island of Sri Lanka.</p>
+                    <p class="small text-muted mb-0">Sharing stories and insights from the breathtaking mountains of Nepal.</p>
                 </div>
 
                 <!-- Recent Posts -->

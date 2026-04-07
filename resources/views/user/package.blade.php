@@ -10,9 +10,9 @@
 <section class="modern-hero">
     <div class="container">
         <div class="hero-content text-center">
-            <div class="user-badge mb-3">Explore Sri Lanka</div>
+            <div class="user-badge mb-3">Explore Nepal</div>
             <h1 class="hero-title-premium">Discover Your Next Adventure</h1>
-            <p class="hero-subtitle-premium mx-auto">Explore our curated travel packages and experience the pearl of the Indian Ocean</p>
+            <p class="hero-subtitle-premium mx-auto">Explore our curated travel packages and experience the roof of the world</p>
             <div class="hero-stats">
                 <div class="stat-item">
                     <span class="stat-number">{{ $travelPackage->count() }}</span>
@@ -162,7 +162,7 @@
                                             </span>
                                             <span class="difficulty">
                                                 <i class="bi bi-geo-alt"></i>
-                                                Sri Lanka
+                                                Nepal
                                             </span>
                                             <span class="group-size">
                                                 <i class="bi bi-people"></i>

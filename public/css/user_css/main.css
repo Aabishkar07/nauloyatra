@@ -1,9 +1,21 @@
-.header-for-navbar{
-    margin-bottom: 130px;
+/* main.css — global base resets that apply everywhere */
+/* Design tokens are in tokens.css — loaded before this file */
 
+/* Navbar top-offset for page content */
+.header-for-navbar {
+    margin-bottom: 100px;
 }
 
-btn:hover{
-    padding: 15px 30px; 
-    font-size: large;
+/* Smooth scroll across all pages */
+html {
+    scroll-behavior: smooth;
 }
+
+/* Consistent page wrapper background */
+main {
+    background: var(--ny-white);
+    min-height: 60vh;
+}
+
+/* Remove default bootstrap button padding override */
+/* (the original btn:hover rule was malformed and had no effect) */

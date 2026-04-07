@@ -2,54 +2,204 @@
 @extends('layouts/mainStructure')
 
 @section('content')
+    <style>
+        /* Mouse Parallax Animation CSS */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        /* Dark overlay for text readability */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.5) 100%);
+            z-index: 10;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        .hero-content {
+            position: absolute;
+            inset: 0;
+            z-index: 25;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 5% 40px;
+            /* top: clears navbar, sides: responsive, bottom: breathing room */
+            gap: 28px;
+            text-align: center;
+        }
+
+        .mainTextPosition {
+            color: white;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+        }
+
+        .mainTextSize {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            margin-bottom: 0.5rem;
+        }
+
+        .mainTextPosition p {
+            margin-top: 8px;
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            opacity: 0.9;
+        }
+
+        .hero-search {
+            width: 100%;
+            max-width: 860px;
+        }
+
+        .hero-search-form {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 20px 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .hero-search-form:hover {
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .hero-search-form label {
+            font-size: 0.85rem;
+            color: #2c3e50;
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .hero-search-form .form-select,
+        .hero-search-form .form-control {
+            height: 44px;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            border: 1px solid rgba(214, 39, 43, 0.08);
+            background: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .hero-search-form .form-select:focus,
+        .hero-search-form .form-control:focus {
+            border-color: rgba(214, 39, 43, 0.2);
+            box-shadow: 0 0 0 0.15rem rgba(214, 39, 43, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            outline: none;
+        }
+
+        .hero-search-form .form-select option {
+            background: white;
+            color: #2c3e50;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #d6272b, #b91f23);
+            border: none;
+            height: 44px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(214, 39, 43, 0.25);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #b91f23, #a71e22);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(214, 39, 43, 0.3);
+        }
+
+        .btn-danger:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 5px rgba(214, 39, 43, 0.2);
+        }
+
+        /* Mouse Parallax Animation */
+        .hero-section:hover .hero-image {
+            transform: scale(1.05);
+        }
+    </style>
 
     {{-- Home Image --}}
-    <div class="hero-section">
+    <div class="hero-section" id="heroSection">
         <img src="{{ asset('image/bg.jfif') }}" class="hero-image" alt="main image">
 
-        {{-- Image Text --}}
-        <div class="mainTextPosition text-center">
-            <h5 class="mainTextSize">Explore The Beauty Of Nepal</h5>
-            <p>Travel Freely. Travel Smart. Travel with NauloYatra.</p>
-        </div>
+        {{-- Hero Content: text + search grouped and centered --}}
+        <div class="hero-content">
+            <div class="mainTextPosition text-center">
+                <h5 class="mainTextSize">Explore The Beauty Of Nepal</h5>
+                <p>Travel Freely. Travel Smart. Travel with NauloYatra.</p>
+            </div>
 
-        <div class="hero-search">
-            <form action="{{ route('user.travelPackage.show') }}" method="get" class="hero-search-form">
-                @csrf
+            <div class="hero-search">
+                <form action="{{ route('user.travelPackage.show') }}" method="get" class="hero-search-form">
+                    @csrf
 
-                <div class="row g-2 align-items-end">
-                    <div class="col-12 col-md-3">
-                        <label for="price" class="fw-bold">Sort by price:</label>
-                        <select name="price" id="price" class="form-select">
-                            <option value="low_to_high">Low To High</option>
-                            <option value="high_to_low">High To Low</option>
-                        </select>
-                    </div>
+                    <div class="row g-2 align-items-end">
+                        <div class="col-12 col-md-3">
+                            <label for="price" class="fw-bold">Sort by price:</label>
+                            <select name="price" id="price" class="form-select">
+                                <option value="low_to_high">Low To High</option>
+                                <option value="high_to_low">High To Low</option>
+                            </select>
+                        </div>
 
-                    <div class="col-12 col-md-3">
-                        <label for="date" class="fw-bold">Check in - Check out:</label>
-                        <input type="date" name="date" id="date" class="form-control">
-                    </div>
+                        <div class="col-12 col-md-3">
+                            <label for="date" class="fw-bold">Check in - Check out:</label>
+                            <input type="date" name="date" id="date" class="form-control">
+                        </div>
 
-                    <div class="col-12 col-md-4">
-                        <label for="tour_type" class="fw-bold">Tour Category:</label>
-                        <select name="tour_type" id="tour_type" class="form-select">
-                            <option value="">All Categories</option>
-                            <option value="Adventure Tour">Adventure Tour</option>
-                            <option value="Beach Holiday Tour">Beach Holiday Tour</option>
-                            <option value="Cultural Tour">Cultural Tour</option>
-                            <option value="Business Trip Tour">Business Trip Tour</option>
-                            <option value="Wildlife Safaris">Wildlife Safaris</option>
-                        </select>
-                    </div>
+                        <div class="col-12 col-md-4">
+                            <label for="tour_type" class="fw-bold">Tour Category:</label>
+                            <select name="tour_type" id="tour_type" class="form-select">
+                                <option value="">All Categories</option>
+                                <option value="Adventure Tour">Adventure Tour</option>
+                                <option value="Beach Holiday Tour">Beach Holiday Tour</option>
+                                <option value="Cultural Tour">Cultural Tour</option>
+                                <option value="Business Trip Tour">Business Trip Tour</option>
+                                <option value="Wildlife Safaris">Wildlife Safaris</option>
+                            </select>
+                        </div>
 
-                    <div class="col-12 col-md-2">
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-danger btn fw-bold">Search</button>
+                        <div class="col-12 col-md-2">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-danger btn fw-bold">Search</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -129,7 +279,7 @@
         <div class="container">
             <div class="section-header text-center">
                 <h2 class="section-title">Our Services</h2>
-                <p class="section-subtitle">Everything you need for the perfect Sri Lankan experience</p>
+                <p class="section-subtitle">Everything you need for the perfect Himalayan experience</p>
                 <div class="title-divider"></div>
             </div>
 
@@ -140,7 +290,7 @@
                     </div>
                     <h3 class="service-title">Guided Tours</h3>
                     <p class="service-description">Expert local guides to show you the hidden gems and cultural treasures of
-                        Sri Lanka.</p>
+                        Nepal.</p>
                     <ul class="service-features">
                         <li><i class="bi bi-check-circle-fill"></i> Professional Guides</li>
                         <li><i class="bi bi-check-circle-fill"></i> Local Knowledge</li>
@@ -200,54 +350,78 @@
         <div class="container">
             <div class="section-header text-center">
                 <h2 class="section-title">Popular Destinations</h2>
-                <p class="section-subtitle">Discover the most beautiful places in Sri Lanka</p>
+                <p class="section-subtitle">Discover the most beautiful places in Nepal</p>
                 <div class="title-divider"></div>
             </div>
 
             <div class="destinations-carousel">
-                <div class="swiper dest-swiper">
-                    <div class="swiper-wrapper">
-                        @foreach ($travelPackages ?? [] as $package)
-                            @php
-                                $imagePath = $package->image_1
-                                    ? asset('image/uploads/travelPackage/' . $package->image_1)
-                                    : asset('image/uploads/travelPackage/empty-image.png');
-                            @endphp
+                @if($travelPackages && $travelPackages->count() > 0)
+                    <div class="swiper dest-swiper">
+                        <div class="swiper-wrapper">
+                            @foreach ($travelPackages as $package)
+                                @php
+                                    $imagePath = $package->image_1
+                                        ? asset('image/uploads/travelPackage/' . $package->image_1)
+                                        : asset('image/uploads/travelPackage/empty-image.png');
+                                @endphp
 
-                            <div class="swiper-slide">
-                                <div class="destination-card">
-                                    <div class="dest-image">
-                                        <img src="{{ $imagePath }}" alt="{{ $package->package_name }}">
-                                        <div class="dest-overlay">
-                                            <div class="dest-content">
-                                                <h3 class="dest-name">{{ $package->package_name }}</h3>
-                                                <p class="dest-type">{{ $package->tour_type }}</p>
-                                                <div class="dest-duration">
-                                                    <i class="bi bi-clock"></i>
-                                                    {{ $package->duration }} Days
+                                <div class="swiper-slide">
+                                    <div class="destination-card">
+                                        <div class="dest-image">
+                                            <img src="{{ $imagePath }}" alt="{{ $package->package_name }}">
+                                            <div class="dest-overlay">
+                                                <div class="dest-content">
+                                                    <h3 class="dest-name">{{ $package->package_name }}</h3>
+                                                    <p class="dest-type">{{ $package->tour_type }}</p>
+                                                    <div class="dest-duration">
+                                                        <i class="bi bi-clock"></i>
+                                                        {{ $package->duration }} Days
+                                                    </div>
+                                                    <a href="{{ route('user.packagePage', $package->id) }}"
+                                                        class="dest-explore-btn">
+                                                        Explore
+                                                        <i class="bi bi-arrow-right"></i>
+                                                    </a>
                                                 </div>
-                                                <a href="{{ route('user.packagePage', $package->id) }}"
-                                                    class="dest-explore-btn">
-                                                    Explore
-                                                    <i class="bi bi-arrow-right"></i>
-                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+                        <!-- Add pagination if needed -->
+                        <div class="swiper-pagination"></div>
                     </div>
-                </div>
+                @else
+                    <!-- Fallback content when no packages available -->
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="text-center py-5">
+                                <div class="empty-destinations">
+                                    <div class="empty-icon">
+                                        <i class="bi bi-geo-alt"></i>
+                                    </div>
+                                    <h4 class="empty-title">No Destinations Available</h4>
+                                    <p class="empty-description">Check back soon for amazing travel packages!</p>
+                                    <a href="{{ route('user.travelPackage.show') }}" class="btn btn-primary mt-3">
+                                        View All Packages
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
-                <div class="destinations-nav">
-                    <button class="dest-nav-btn" id="destPrev">
-                        <i class="bi bi-chevron-left"></i>
-                    </button>
-                    <button class="dest-nav-btn" id="destNext">
-                        <i class="bi bi-chevron-right"></i>
-                    </button>
-                </div>
+                @if($travelPackages && $travelPackages->count() > 1)
+                    <div class="destinations-nav">
+                        <button class="dest-nav-btn" id="destPrev">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button class="dest-nav-btn" id="destNext">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
@@ -260,24 +434,86 @@
                 if (!el) return;
 
                 new Swiper(el, {
-                    slidesPerView: 1.15,
-                    spaceBetween: 20,
+                    slidesPerView: 1.1,
+                    spaceBetween: 15,
                     centeredSlides: false,
                     loop: true,
+                    loopAdditionalSlides: 3,
+                    watchSlidesProgress: true,
+                    watchSlidesVisibility: true,
                     pagination: {
                         el: '.dest-swiper .swiper-pagination',
                         clickable: true,
+                        dynamicBullets: true,
+                        dynamicMainBullets: 3,
                     },
                     navigation: {
                         prevEl: '#destPrev',
                         nextEl: '#destNext',
                     },
                     breakpoints: {
-                        576: { slidesPerView: 1.8, spaceBetween: 20 },
-                        768: { slidesPerView: 2.2, spaceBetween: 24 },
-                        992: { slidesPerView: 3, spaceBetween: 28 },
-                        1400: { slidesPerView: 3, spaceBetween: 32 },
-                    }
+                        // Mobile devices
+                        320: {
+                            slidesPerView: 1.1,
+                            spaceBetween: 12,
+                            centeredSlides: true,
+                        },
+                        375: {
+                            slidesPerView: 1.2,
+                            spaceBetween: 14,
+                            centeredSlides: true,
+                        },
+                        425: {
+                            slidesPerView: 1.3,
+                            spaceBetween: 16,
+                            centeredSlides: true,
+                        },
+                        // Tablets
+                        576: {
+                            slidesPerView: 1.5,
+                            spaceBetween: 18,
+                            centeredSlides: false,
+                        },
+                        768: {
+                            slidesPerView: 2.0,
+                            spaceBetween: 20,
+                            centeredSlides: false,
+                        },
+                        // Small desktops
+                        992: {
+                            slidesPerView: 2.5,
+                            spaceBetween: 24,
+                            centeredSlides: false,
+                        },
+                        // Large desktops
+                        1200: {
+                            slidesPerView: 3.0,
+                            spaceBetween: 28,
+                            centeredSlides: false,
+                        },
+                        1400: {
+                            slidesPerView: 3.5,
+                            spaceBetween: 32,
+                            centeredSlides: false,
+                        },
+                    },
+                    // Touch events optimization
+                    touchEventsTarget: 'wrapper',
+                    touchRatio: 1,
+                    touchAngle: 45,
+                    grabCursor: true,
+                    // Resistance for better feel
+                    resistance: true,
+                    resistanceRatio: 0.85,
+                    // Prevent clicks on swipe
+                    preventClicks: true,
+                    preventClicksPropagation: true,
+                    // Smooth transitions
+                    speed: 400,
+                    effect: 'slide',
+                    // Free mode for natural scrolling
+                    freeMode: false,
+                    freeModeSticky: false,
                 });
             });
         </script>
@@ -376,7 +612,7 @@
                             <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
                                 class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                         </div>
-                        <p class="text-muted mb-4 italic" style="font-style: italic;">"NauloYatra planned our Sri Lanka trip
+                        <p class="text-muted mb-4 italic" style="font-style: italic;">"NauloYatra planned our Nepal trek
                             perfectly. Everything was smooth and the team was always responsive to our needs."</p>
                         <div class="d-flex align-items-center gap-3">
                             <img src="https://picsum.photos/seed/user1/100/100.jpg" alt="Sarah Johnson"
@@ -456,7 +692,8 @@
                         <i class="bi bi-person-check"></i>
                     </div>
                     <h3 class="why-title">Expert Local Guides</h3>
-                    <p class="why-description">Knowledgeable local guides who bring Sri Lanka's culture and history to life
+                    <p class="why-description">Knowledgeable local guides who bring Nepal's culture, mountains and heritage
+                        to life
                     </p>
                 </div>
 
@@ -585,7 +822,102 @@
                     }
                 });
             });
+
+            // Mouse Parallax Animation for Hero Section
+            const heroSection = document.getElementById('heroSection');
+            const heroImage = heroSection?.querySelector('.hero-image');
+            const mainText = heroSection?.querySelector('.mainTextPosition');
+            const heroSearch = heroSection?.querySelector('.hero-search');
+
+            if (heroSection && heroImage) {
+                let mouseX = 0, mouseY = 0;
+                let currentX = 0, currentY = 0;
+                let targetX = 0, targetY = 0;
+
+                // Mouse move handler
+                const handleMouseMove = (e) => {
+                    const rect = heroSection.getBoundingClientRect();
+                    mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+                    mouseY = (e.clientY - rect.top) / rect.height - 0.5;
+
+                    targetX = mouseX * 20; // Adjust parallax intensity
+                    targetY = mouseY * 20;
+                };
+
+                // Touch move handler for mobile
+                const handleTouchMove = (e) => {
+                    const touch = e.touches[0];
+                    const rect = heroSection.getBoundingClientRect();
+                    mouseX = (touch.clientX - rect.left) / rect.width - 0.5;
+                    mouseY = (touch.clientY - rect.top) / rect.height - 0.5;
+
+                    targetX = mouseX * 15; // Slightly less intense on mobile
+                    targetY = mouseY * 15;
+                };
+
+                // Animation loop
+                const animate = () => {
+                    currentX += (targetX - currentX) * 0.1;
+                    currentY += (targetY - currentY) * 0.1;
+
+                    // Apply parallax transformations
+                    if (heroImage) {
+                        heroImage.style.transform = `translate(${currentX}px, ${currentY}px) scale(1.05)`;
+                    }
+
+                    if (mainText) {
+                        mainText.style.transform = `translate(calc(-50% + ${currentX * 0.5}px), calc(-50% + ${currentY * 0.5}px))`;
+                    }
+
+                    if (heroSearch) {
+                        heroSearch.style.transform = `translate(calc(-50% + ${currentX * 0.3}px), calc(58% + ${currentY * 0.2}px))`;
+                    }
+
+                    requestAnimationFrame(animate);
+                };
+
+                // Start animation loop
+                animate();
+
+                // Event listeners
+                heroSection.addEventListener('mousemove', handleMouseMove);
+                heroSection.addEventListener('touchmove', handleTouchMove);
+
+                // Reset on mouse leave
+                heroSection.addEventListener('mouseleave', () => {
+                    targetX = 0;
+                    targetY = 0;
+                });
+
+                heroSection.addEventListener('touchend', () => {
+                    targetX = 0;
+                    targetY = 0;
+                });
+
+                // Smooth reset on page load
+                setTimeout(() => {
+                    targetX = 0;
+                    targetY = 0;
+                }, 100);
+            }
         </script>
     @endpush
+
+    <script>
+        // Additional mouse parallax for hero section (fallback)
+        document.addEventListener('DOMContentLoaded', function () {
+            const heroSection = document.getElementById('heroSection');
+            if (heroSection) {
+                // Add subtle hover effect
+                heroSection.addEventListener('mouseenter', () => {
+                    heroSection.style.transition = 'all 0.3s ease';
+                });
+
+                heroSection.addEventListener('mouseleave', () => {
+                    heroSection.style.transition = 'all 0.5s ease';
+                });
+            }
+        });
+    </script>
 
 @endsection

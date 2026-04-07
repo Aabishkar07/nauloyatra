@@ -66,47 +66,128 @@
         padding: 8px 18px;
         border-radius: 50px;
         position: relative;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: color 0.25s ease, background 0.25s ease, transform 0.2s ease;
         white-space: nowrap;
         text-decoration: none;
         display: flex;
         align-items: center;
         gap: 6px;
+        overflow: hidden;
+    }
+
+    /* Sliding underline pseudo-element */
+    .nav-links .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--brand);
+        border-radius: 2px;
+        transform: translateX(-50%);
+        transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .nav-links .nav-link:hover {
         color: var(--brand);
-        background-color: rgba(214, 39, 43, 0.08);
-        /* Soft brand pill */
+        background: rgba(214, 39, 43, 0.06);
+        transform: translateY(-1px);
+    }
+
+    .nav-links .nav-link:hover::after {
+        width: calc(100% - 36px);
     }
 
     .nav-links .nav-link.active {
         color: var(--brand);
-        background-color: rgba(214, 39, 43, 0.12);
+        background: rgba(214, 39, 43, 0.10);
         font-weight: 600;
     }
 
+    .nav-links .nav-link.active::after {
+        width: calc(100% - 36px);
+    }
+
     /* Dropdown */
-    .nav-links .dropdown-menu {
-        border-radius: 12px;
-        border: 0;
-        box-shadow: 0 8px 28px rgba(27, 103, 154, 0.13);
-        font-size: 0.88rem;
-        min-width: 160px;
-        animation: fadeUp 0.17s ease;
+    .nav-links li.has-dropdown {
+        position: relative;
+    }
+
+    /* Invisible bridge spanning the gap so hover doesn't break */
+    .nav-links li.has-dropdown::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 0;
+        right: 0;
+        height: 12px;
+    }
+
+    .nav-links .custom-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+        min-width: 180px;
         padding: 6px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.15s;
+        transform: translateX(-50%) translateY(-6px);
+        z-index: 9999;
+        border: 1px solid rgba(0,0,0,0.06);
     }
 
-    .nav-links .dropdown-item {
+    /* Arrow pointer */
+    .nav-links .custom-dropdown::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid #fff;
+        filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.06));
+    }
+
+    .nav-links li.has-dropdown:hover .custom-dropdown,
+    .nav-links li.has-dropdown.open .custom-dropdown {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+    }
+
+    .nav-links .custom-dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
         border-radius: 8px;
-        padding: 8px 14px;
         color: #2d3748;
-        transition: background 0.15s;
+        font-size: 0.88rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.15s, color 0.15s;
+        white-space: nowrap;
     }
 
-    .nav-links .dropdown-item:hover {
-        background: rgba(27, 103, 154, 0.07);
+    .nav-links .custom-dropdown-item:hover,
+    .nav-links .custom-dropdown-item.active {
+        background: rgba(214,39,43,0.07);
         color: var(--brand);
+    }
+
+    .nav-links .custom-dropdown-item i {
+        font-size: 0.85rem;
+        opacity: 0.7;
     }
 
     /* Auth buttons */
@@ -198,31 +279,91 @@
         justify-content: center;
     }
 
-    .auth-dropdown-menu {
-        border-radius: 12px;
-        border: 0;
-        box-shadow: 0 8px 28px rgba(27, 103, 154, 0.13);
-        font-size: 0.88rem;
-        min-width: 160px;
+    /* Auth dropdown */
+    .auth-dropdown-wrap {
+        position: relative;
+    }
+
+    /* Invisible bridge for auth dropdown */
+    .auth-dropdown-wrap::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 0;
+        right: 0;
+        height: 12px;
+    }
+
+    .auth-custom-dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+        min-width: 180px;
         padding: 6px;
-        animation: fadeUp 0.17s ease;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.15s;
+        transform: translateY(-6px);
+        z-index: 9999;
+        border: 1px solid rgba(0,0,0,0.06);
     }
 
-    .auth-dropdown-menu .dropdown-item {
+    .auth-custom-dropdown::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        right: 18px;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid #fff;
+        filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.06));
+    }
+
+    .auth-dropdown-wrap:hover .auth-custom-dropdown,
+    .auth-dropdown-wrap.open .auth-custom-dropdown {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+    }
+
+    .auth-custom-dropdown .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
         border-radius: 8px;
-        padding: 8px 14px;
         color: #2d3748;
-        transition: background 0.15s;
+        font-size: 0.88rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.15s, color 0.15s;
+        cursor: pointer;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
     }
 
-    .auth-dropdown-menu .dropdown-item:hover {
-        background: rgba(27, 103, 154, 0.07);
+    .auth-custom-dropdown .dropdown-item:hover {
+        background: rgba(214,39,43,0.07);
         color: var(--brand);
     }
 
-    .auth-dropdown-menu .dropdown-item.text-danger:hover {
-        background: rgba(220, 53, 69, 0.06);
+    .auth-custom-dropdown .dropdown-item.text-danger:hover {
+        background: rgba(220,53,69,0.06);
         color: #dc3545 !important;
+    }
+
+    .auth-custom-dropdown .dropdown-divider {
+        height: 1px;
+        background: #f1f5f9;
+        margin: 4px 8px;
     }
 
     /* Mobile toggler */
@@ -521,42 +662,41 @@
                         href="{{ route('user.travelPackage.show') }}">Packages</a></li>
                 <li><a class="nav-link {{ request()->routeIs('blog') || request()->routeIs('blog.page') ? 'active' : '' }}"
                         href="{{ route('blog') }}">Blog</a></li>
-                <li class="dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('aboutUs') || request()->routeIs('contactUs') ? 'active' : '' }}"
-                        href="#" data-bs-toggle="dropdown">Company</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item {{ request()->routeIs('aboutUs') ? 'active' : '' }}"
-                                href="{{ route('aboutUs') }}">About Us</a></li>
-                        <li><a class="dropdown-item {{ request()->routeIs('contactUs') ? 'active' : '' }}"
-                                href="{{ route('contactUs') }}">Contact</a></li>
-                    </ul>
+                <li class="has-dropdown">
+                    <a class="nav-link {{ request()->routeIs('aboutUs') || request()->routeIs('contactUs') ? 'active' : '' }}"
+                        href="#" onclick="return false;">Company <i class="bi bi-chevron-down" style="font-size:0.65rem;opacity:0.7;"></i></a>
+                    <div class="custom-dropdown">
+                        <a href="{{ route('aboutUs') }}" class="custom-dropdown-item {{ request()->routeIs('aboutUs') ? 'active' : '' }}">
+                            <i class="bi bi-people"></i> About Us
+                        </a>
+                        <a href="{{ route('contactUs') }}" class="custom-dropdown-item {{ request()->routeIs('contactUs') ? 'active' : '' }}">
+                            <i class="bi bi-envelope"></i> Contact
+                        </a>
+                    </div>
                 </li>
             </ul>
 
             <!-- Auth Section -->
             <div class="auth-section">
                 @auth
-                    <div class="dropdown">
-                        <button class="user-btn dropdown-toggle" data-bs-toggle="dropdown">
+                    <div class="auth-dropdown-wrap">
+                        <button class="user-btn" type="button">
                             <div class="user-avatar">{{ substr(Auth::user()->name, 0, 1) }}</div>
                             <span>{{ Auth::user()->name }}</span>
+                            <i class="bi bi-chevron-down" style="font-size:0.65rem;opacity:0.6;margin-left:2px;"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end auth-dropdown-menu mt-2">
-                            <li><a class="dropdown-item" href="{{ route('profile.show') }}"><i
-                                        class="bi bi-person-circle me-2"></i>My Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider my-1">
-                            </li>
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit"
-                                        class="dropdown-item text-danger border-0 bg-transparent w-100 text-start">
-                                        <i class="bi bi-box-arrow-right me-2"></i>Log Out
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
+                        <div class="auth-custom-dropdown">
+                            <a class="dropdown-item" href="{{ route('profile.show') }}">
+                                <i class="bi bi-person-circle"></i> My Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="bi bi-box-arrow-right"></i> Log Out
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 @else
                     <div class="auth-section">

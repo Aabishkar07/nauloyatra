@@ -8,7 +8,7 @@
         <div class="about-hero-overlay"></div>
         <div class="about-hero-content container">
             <h1 class="display-3 fw-bold mb-3">About Us</h1>
-            <p class="lead text-light">Unveiling the mesmerizing beauty of Sri Lanka, one journey at a time.</p>
+            <p class="lead text-light">Unveiling the breathtaking beauty of Nepal, one journey at a time.</p>
         </div>
     </section>
 
@@ -30,12 +30,12 @@
                 <h2 class="display-5 fw-bold mb-4">OUR STORY</h2>
                 <div class="text-justify lh-lg text-muted">
                     <p class="mb-4">
-                        At Sinaha Lanka Tours, we are passionate about showcasing the mesmerizing beauty of Sri Lanka. 
-                        As a leading travel agency in the country, we specialize in crafting personalized itineraries 
-                        that offer unforgettable experiences. 
+                        At NauloYatra Tours & Travels, we are passionate about showcasing the breathtaking beauty of Nepal.
+                        As a leading travel agency in the country, we specialize in crafting personalized itineraries
+                        that offer unforgettable experiences.
                     </p>
                     <p>
-                        With our deep local knowledge and expertise, we take pride in curating unique journeys that immerse you in Sri Lanka’s rich culture, breathtaking landscapes, and vibrant heritage. Whether you seek a tranquil beach getaway, thrilling wildlife encounters, or a cultural exploration, we are here to make your travel dreams come true. Trust Sinaha Lanka Tours to guide you on an extraordinary journey through the wonders of Sri Lanka.
+                        With our deep local knowledge and expertise, we take pride in curating unique journeys that immerse you in Nepal's rich culture, majestic Himalayas, and vibrant heritage. Whether you seek a thrilling mountain trek, serene lakeside retreats, or a cultural exploration of ancient temples, we are here to make your travel dreams come true. Trust NauloYatra to guide you on an extraordinary journey through the wonders of Nepal.
                     </p>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                                 <img src="{{ asset('image/help-tools/img1About.svg') }}" alt="1 YEARS EXPERIENCES log">
                             </div>
                             <h5 class="fw-bold mb-3">1 YEARS EXPERIENCES</h5>
-                            <p class="text-muted small mb-0">Discover Sri Lanka’s wonders with our expertise. Memorable journeys tailored to your preferences await.</p>
+                            <p class="text-muted small mb-0">Discover Nepal's wonders with our expertise. Memorable journeys tailored to your preferences await.</p>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                                 <img src="{{ asset('image/help-tools/img2About.svg') }}" alt="ACCOMMODATION ADVICE logo">
                             </div>
                             <h5 class="fw-bold mb-3">ACCOMMODATION ADVICE</h5>
-                            <p class="text-muted small mb-0">Find your perfect stay in Sri Lanka. Expert advice on accommodations to make your trip unforgettable.</p>
+                            <p class="text-muted small mb-0">Find your perfect stay in Nepal. Expert advice on accommodations to make your trip unforgettable.</p>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                         <h2 class="display-5 fw-bold mb-4">WHY CHOOSE US?</h2>
                         <div class="text-muted lh-lg fs-5">
                             <p class="mb-0">
-                                At Sri Lanka Tours, we are your trusted travel partner for exploring the wonders of Sri Lanka. With our extensive experience and local expertise, we offer personalized itineraries and seamless travel experiences tailored to your preferences. Our dedicated team of professionals is committed to providing exceptional service, ensuring your journey is filled with unforgettable moments. From cultural heritage sites to pristine beaches, lush tea plantations to thrilling wildlife encounters, we strive to showcase the best of Sri Lanka. Choose Sri Lanka Tours for a truly immersive and memorable travel experience in the jewel of the Indian Ocean.
+                                At NauloYatra, we are your trusted travel partner for exploring the wonders of Nepal. With our extensive experience and local expertise, we offer personalized itineraries and seamless travel experiences tailored to your preferences. Our dedicated team of professionals is committed to providing exceptional service, ensuring your journey is filled with unforgettable moments. From ancient heritage sites in Kathmandu Valley to the majestic peaks of the Himalayas, serene Pokhara lakeside to thrilling Chitwan wildlife safaris, we strive to showcase the very best of Nepal. Choose NauloYatra for a truly immersive and memorable travel experience in the land of the Himalayas.
                             </p>
                         </div>
                     </div>

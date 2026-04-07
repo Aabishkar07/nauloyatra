@@ -1,30 +1,12 @@
-/* Original Hero Section CSS - Nepal Theme */
-.mainTextPosition {
-    position: absolute;
-    top: 38%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
-    /* width: 80%; */
-}
-
-.mainTextPosition p {
-    margin-top: 8px;
-    font-size: 1.05rem;
-    opacity: 0.92;
-}
-
+/* Hero Section with 100vh and Mouse Parallax */
 .hero-section {
     position: relative;
     width: 100%;
     height: 100vh;
-    min-height: 580px;
+    min-height: 600px;
     overflow: hidden;
-    margin-top: -80px;
-    /* Offset for navbar */
-    padding-top: 80px;
-    /* Compensate for content */
+    margin-top: -80px; /* Offset for navbar */
+    padding-top: 80px; /* Compensate for content */
 }
 
 .hero-image {
@@ -36,8 +18,46 @@
     object-fit: cover;
     object-position: center top;
     display: block;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
 }
 
+.mainTextPosition {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+    z-index: 25;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+}
+
+.mainTextPosition p {
+    margin-top: 8px;
+    font-size: 1.05rem;
+    opacity: 0.92;
+}
+
+.hero-search {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    z-index: 25;
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+}
+
+/* Mouse Parallax Animation */
+.hero-section:hover .hero-image {
+    transform: scale(1.05);
+}
+
+/* Enhanced Cloud Animations */
 .clouds {
     position: absolute;
     inset: 0;
@@ -121,6 +141,14 @@
     opacity: 1;
     animation: moveLeft 40s linear infinite 5s;
 }
+
+/* Mouse Parallax Variables */
+:root {
+    --mouse-x: 0;
+    --mouse-y: 0;
+}
+
+/* JavaScript-powered parallax will be added via inline styles */
 
 .fog-base {
     position: absolute;
@@ -234,23 +262,9 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Modern Sections CSS */
-:root {
-    --primary-color: #d6272b;
-    --primary-dark: #b71c1c;
-    --secondary-color: #1b679a;
-    --accent-color: #25d366;
-    --text-dark: #2d3748;
-    --text-light: #718096;
-    --text-white: #ffffff;
-    --bg-light: #f8fafc;
-    --bg-white: #ffffff;
-    --border-color: #e2e8f0;
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Design tokens live in tokens.css — do not redefine here. */
+/* Use var(--ny-*) for new styles or var(--primary-color) compat aliases from modern-user.css */
+
 
 /* Section Headers */
 .section-header {
@@ -541,14 +555,26 @@
     font-size: 0.8rem;
 }
 
-/* Destinations Section */
+/* Destinations Section - Fixed Width with Scrolling */
 .destinations-section {
     padding: 80px 0;
     background: var(--bg-light);
+    position: relative;
+    overflow: hidden;
 }
 
 .destinations-carousel {
     position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.dest-swiper {
+    width: 100%;
+    overflow: hidden;
 }
 
 .destination-card {
@@ -557,16 +583,21 @@
     overflow: hidden;
     box-shadow: var(--shadow-md);
     transition: var(--transition);
+    height: 100%;
+    background: white;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 350px;
 }
 
 .destination-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     box-shadow: var(--shadow-lg);
 }
 
 .dest-image {
     position: relative;
-    height: 300px;
+    height: 280px;
     overflow: hidden;
 }
 
@@ -574,6 +605,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: var(--transition);
+}
+
+.destination-card:hover .dest-image img {
+    transform: scale(1.1);
 }
 
 .dest-overlay {
@@ -582,11 +618,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.2) 100%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 2rem;
+    padding: 1.5rem;
     color: var(--text-white);
 }
 
@@ -595,15 +631,24 @@
 }
 
 .dest-name {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .dest-type {
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 0.85rem;
+    opacity: 0.9;
     margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    display: inline-block;
 }
 
 .dest-duration {
@@ -611,48 +656,54 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    font-size: 0.85rem;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.4rem 0.8rem;
     border-radius: 20px;
     margin-bottom: 1rem;
+    backdrop-filter: blur(10px);
 }
 
 .dest-explore-btn {
     background: var(--primary-color);
     color: var(--text-white);
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 8px 16px;
+    border-radius: 20px;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     transition: var(--transition);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    border: 2px solid transparent;
 }
 
 .dest-explore-btn:hover {
     background: var(--primary-dark);
-    gap: 1rem;
+    gap: 0.75rem;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(214, 39, 43, 0.3);
 }
 
 .destinations-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 100%;
+    width: calc(100% + 120px);
+    left: -60px;
     display: flex;
     justify-content: space-between;
-    padding: 0 2rem;
+    padding: 0 1rem;
     pointer-events: none;
+    z-index: 10;
 }
 
 .dest-nav-btn {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     border: none;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -660,12 +711,359 @@
     color: var(--text-dark);
     cursor: pointer;
     transition: var(--transition);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    pointer-events: all;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
 }
 
 .dest-nav-btn:hover {
     background: var(--primary-color);
     color: var(--text-white);
+    transform: scale(1.1);
+}
+
+.dest-nav-btn:active {
+    transform: scale(0.95);
+}
+
+/* Debug styles - ensure visibility */
+.dest-swiper {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.swiper-slide {
+    opacity: 1 !important;
+}
+
+.destination-card {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Enhanced Responsive Design for Fixed Width Destinations */
+@media (max-width: 1200px) {
+    .destinations-carousel {
+        max-width: 1000px;
+    }
+    
+    .destination-card {
+        max-width: 320px;
+    }
+    
+    .dest-image {
+        height: 260px;
+    }
+    
+    .dest-name {
+        font-size: 1rem;
+    }
+    
+    .dest-nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .destinations-section {
+        padding: 60px 0;
+    }
+    
+    .destinations-carousel {
+        max-width: 900px;
+        padding: 0 40px;
+    }
+    
+    .destination-card {
+        max-width: 300px;
+    }
+    
+    .dest-image {
+        height: 240px;
+    }
+    
+    .dest-overlay {
+        padding: 1.2rem;
+    }
+    
+    .dest-name {
+        font-size: 0.95rem;
+    }
+    
+    .dest-type {
+        font-size: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .dest-duration {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .dest-explore-btn {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+    }
+    
+    .dest-nav-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+    
+    .destinations-nav {
+        width: calc(100% + 80px);
+        left: -40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .destinations-section {
+        padding: 50px 0;
+    }
+    
+    .destinations-carousel {
+        max-width: 100%;
+        padding: 0 35px;
+    }
+    
+    .destination-card {
+        max-width: 280px;
+    }
+    
+    .dest-image {
+        height: 220px;
+    }
+    
+    .dest-overlay {
+        padding: 1rem;
+    }
+    
+    .dest-name {
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .dest-type {
+        font-size: 0.75rem;
+        margin-bottom: 0.6rem;
+        padding: 0.2rem 0.6rem;
+    }
+    
+    .dest-duration {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .dest-explore-btn {
+        padding: 5px 12px;
+        font-size: 0.75rem;
+    }
+    
+    .dest-nav-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+    }
+    
+    .destinations-nav {
+        width: calc(100% + 70px);
+        left: -35px;
+        padding: 0 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .destinations-section {
+        padding: 40px 0;
+    }
+    
+    .destinations-carousel {
+        padding: 0 30px;
+    }
+    
+    .destination-card {
+        max-width: 260px;
+    }
+    
+    .dest-image {
+        height: 200px;
+    }
+    
+    .dest-overlay {
+        padding: 0.8rem;
+    }
+    
+    .dest-name {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+        -webkit-line-clamp: 1;
+    }
+    
+    .dest-type {
+        font-size: 0.7rem;
+        margin-bottom: 0.5rem;
+        padding: 0.15rem 0.5rem;
+    }
+    
+    .dest-duration {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.4rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .dest-explore-btn {
+        padding: 4px 10px;
+        font-size: 0.7rem;
+    }
+    
+    .dest-nav-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
+    }
+    
+    .destinations-nav {
+        width: calc(100% + 60px);
+        left: -30px;
+        padding: 0 0.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .destinations-section {
+        padding: 30px 0;
+    }
+    
+    .destinations-carousel {
+        padding: 0 25px;
+    }
+    
+    .destination-card {
+        max-width: 240px;
+    }
+    
+    .dest-image {
+        height: 180px;
+    }
+    
+    .dest-overlay {
+        padding: 0.6rem;
+    }
+    
+    .dest-name {
+        font-size: 0.8rem;
+    }
+    
+    .dest-type {
+        font-size: 0.65rem;
+    }
+    
+    .dest-duration {
+        font-size: 0.6rem;
+    }
+    
+    .dest-explore-btn {
+        padding: 3px 8px;
+        font-size: 0.65rem;
+    }
+    
+    .dest-nav-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 0.6rem;
+    }
+    
+    .destinations-nav {
+        width: calc(100% + 50px);
+        left: -25px;
+    }
+}
+
+/* Empty Destinations State */
+.empty-destinations {
+    padding: 3rem 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    border: 2px dashed var(--border-color);
+    backdrop-filter: blur(10px);
+}
+
+.empty-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--text-white);
+    font-size: 2rem;
+}
+
+.empty-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.empty-description {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Ensure destinations section is always visible */
+.destinations-section {
+    min-height: 400px;
+}
+
+.destinations-carousel {
+    min-height: 350px;
+}
+
+/* Swiper pagination styles */
+.dest-swiper .swiper-pagination {
+    bottom: 20px;
+}
+
+.dest-swiper .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+    transition: var(--transition);
+}
+
+.dest-swiper .swiper-pagination-bullet-active {
+    background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .destination-card:hover {
+        transform: none;
+    }
+    
+    .destination-card:active {
+        transform: scale(0.98);
+    }
+    
+    .dest-nav-btn:hover {
+        transform: none;
+    }
+    
+    .dest-nav-btn:active {
+        transform: scale(0.9);
+        background: var(--primary-color);
+        color: var(--text-white);
+    }
 }
 
 /* Testimonials Section */
