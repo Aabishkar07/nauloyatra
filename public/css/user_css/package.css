@@ -1,20 +1,7 @@
 /* Modern Package CSS - Simple & Responsive Design */
 
-:root {
-    --primary-color: #d6272b;
-    --primary-dark: #b71c1c;
-    --secondary-color: #1b679a;
-    --success-color: #25d366;
-    --text-dark: #2d3748;
-    --text-light: #718096;
-    --bg-light: #f8fafc;
-    --bg-white: #ffffff;
-    --border-color: #e2e8f0;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Design tokens live in tokens.css — do not redefine here. */
+/* Use var(--ny-*) for new styles or var(--primary-color) compat aliases from modern-user.css */
 
 /* Packages Hero Section */
 .packages-hero {

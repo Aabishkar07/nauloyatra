@@ -1,17 +1,20 @@
 {{-- NauloYatra — Main Layout --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="NauloYatra Tours & Travels — Discover Nepal with curated trekking, cultural tours and custom itineraries.">
+    <meta name="description"
+        content="NauloYatra Tours & Travels — Discover Nepal with curated trekking, cultural tours and custom itineraries.">
     <title>{{ config('app.name', 'NauloYatra') }}</title>
 
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     {{-- Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -27,6 +30,7 @@
 
     {{-- ② Global Component Library --}}
     <link rel="stylesheet" href="{{ asset('css/user_css/modern-user.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user_css/nav.css') }}">
 
     {{-- ③ Page-specific CSS (each page injects via @section('styles')) --}}
     <link rel="stylesheet" href="{{ asset('css/user_css/home.css') }}">
@@ -40,6 +44,7 @@
     @stack('styles')
     @yield('styles')
 </head>
+
 <body>
 
     {{-- Navigation --}}
@@ -66,4 +71,5 @@
     @yield('scripts')
 
 </body>
+
 </html>
