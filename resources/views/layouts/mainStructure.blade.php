@@ -30,7 +30,7 @@
 
     {{-- ② Global Component Library --}}
     <link rel="stylesheet" href="{{ asset('css/user_css/modern-user.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/user_css/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user_css/nav.css') }}?v={{ time() }}">
 
     {{-- ③ Page-specific CSS (each page injects via @section('styles')) --}}
     <link rel="stylesheet" href="{{ asset('css/user_css/home.css') }}">

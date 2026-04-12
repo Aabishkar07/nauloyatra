@@ -139,7 +139,7 @@
                 <div class="packages-grid" id="packagesGrid">
                     @if ($travelPackage->isNotEmpty())
                         @foreach ($travelPackage as $package)
-                            <div class="modern-card">
+                            <div class="modern-card position-relative">
                                 <div class="package-image img-zoom-container">
                                     @if ($package->image_1 != "")
                                         <img src="{{ asset('image/uploads/travelPackage/'.$package->image_1) }}" alt="{{ $package->package_name }}" class="w-100">
@@ -225,11 +225,11 @@
                                             <span class="price-note">per person</span>
                                         </div>
                                         <div class="package-actions">
-                                            <a href="{{ route('user.packagePage', $package->id) }}" class="btn-premium btn-premium-primary py-2 px-3">
+                                            <a href="{{ route('user.packagePage', $package->id) }}" class="btn-premium btn-premium-primary py-2 px-3 stretched-link">
                                                 Details
                                                 <i class="bi bi-arrow-right"></i>
                                             </a>
-                                            <button class="wishlist-btn">
+                                            <button class="wishlist-btn" style="position: relative; z-index: 2;">
                                                 <i class="bi bi-heart"></i>
                                             </button>
                                         </div>

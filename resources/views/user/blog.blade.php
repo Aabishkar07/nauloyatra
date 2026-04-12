@@ -42,7 +42,7 @@
                 @php
                     $featured = $blogs->first();
                 @endphp
-                <div class="modern-card p-0 border-0 shadow-lg" style="display: flex; flex-wrap: wrap;">
+                <div class="modern-card position-relative p-0 border-0 shadow-lg" style="display: flex; flex-wrap: wrap;">
                     <div class="featured-image img-zoom-container" style="flex: 1; min-width: 300px; height: 400px;">
                         @if ($featured->image != "")
                             <img src="{{ asset('image/uploads/blog/'.$featured->image) }}" alt="{{ $featured->title }}" class="w-100 h-100 object-fit-cover">
@@ -58,7 +58,7 @@
                         </div>
                         <h2 class="featured-title fw-bold mb-3" style="font-size: 2.5rem; letter-spacing: -0.02em;">{{ $featured->title }}</h2>
                         <p class="featured-excerpt text-muted mb-4" style="font-size: 1.1rem;">{{ Str::limit(strip_tags($featured->discription), 200) }}</p>
-                        <a href="{{ route('blog.page', $featured->id) }}" class="btn-premium btn-premium-primary">
+                        <a href="{{ route('blog.page', $featured->id) }}" class="btn-premium btn-premium-primary stretched-link">
                             Read Full Story <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
@@ -73,7 +73,7 @@
                     @if ($loop->first)
                         @continue
                     @endif
-                    <div class="modern-card">
+                    <div class="modern-card position-relative">
                         <div class="blog-image img-zoom-container" style="height: 240px;">
                             @if ($blogPost->image != "")
                                 <img src="{{ asset('image/uploads/blog/'.$blogPost->image) }}" alt="{{ $blogPost->title }}" class="w-100 h-100 object-fit-cover">
@@ -89,7 +89,7 @@
                             </div>
                             <h3 class="blog-title fw-bold mb-3" style="font-size: 1.25rem;">{{ $blogPost->title }}</h3>
                             <p class="blog-excerpt text-muted mb-4">{{ Str::limit(strip_tags($blogPost->discription), 120) }}</p>
-                            <a href="{{ route('blog.page', $blogPost->id) }}" class="text-decoration-none fw-bold text-dark d-flex align-items-center gap-2" style="font-size: 0.9rem;">
+                            <a href="{{ route('blog.page', $blogPost->id) }}" class="text-decoration-none fw-bold text-dark d-flex align-items-center gap-2 stretched-link" style="font-size: 0.9rem;">
                                 Read More <i class="bi bi-arrow-right text-primary"></i>
                             </a>
                         </div>

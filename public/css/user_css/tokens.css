@@ -6,85 +6,86 @@
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-
     /* ── Brand Colors ── */
-    --ny-red:        #d6272b;
-    --ny-red-dark:   #b91f23;
-    --ny-red-soft:   rgba(214, 39, 43, 0.08);
-    --ny-red-border: rgba(214, 39, 43, 0.20);
+    --ny-red: #d6272b;
+    --ny-red-dark: #b91f23;
+    --ny-red-soft: rgba(214, 39, 43, 0.08);
+    --ny-red-border: rgba(214, 39, 43, 0.2);
 
     /* ── Neutral Palette ── */
-    --ny-dark:       #0f172a;   /* headings, body text */
-    --ny-dark-2:     #1e293b;   /* slightly lighter dark */
-    --ny-gray:       #64748b;   /* secondary text */
-    --ny-gray-light: #94a3b8;   /* placeholders, metadata */
-    --ny-border:     #e2e8f0;   /* card borders, dividers */
-    --ny-bg:         #f8fafc;   /* page background, input bg */
-    --ny-white:      #ffffff;
+    --ny-dark: #0f172a; /* headings, body text */
+    --ny-dark-2: #1e293b; /* slightly lighter dark */
+    --ny-gray: #64748b; /* secondary text */
+    --ny-gray-light: #94a3b8; /* placeholders, metadata */
+    --ny-border: #e2e8f0; /* card borders, dividers */
+    --ny-bg: #f8fafc; /* page background, input bg */
+    --ny-white: #ffffff;
 
     /* ── Semantic Aliases ── */
-    --ny-text-primary:   var(--ny-dark);
+    --ny-text-primary: var(--ny-dark);
     --ny-text-secondary: var(--ny-gray);
-    --ny-text-muted:     var(--ny-gray-light);
-    --ny-surface:        var(--ny-white);
-    --ny-surface-alt:    var(--ny-bg);
+    --ny-text-muted: var(--ny-gray-light);
+    --ny-surface: var(--ny-white);
+    --ny-surface-alt: var(--ny-bg);
 
     /* ── Shadows ── */
-    --ny-shadow-xs: 0 1px 3px rgba(15,23,42,0.04);
-    --ny-shadow-sm: 0 4px 12px rgba(15,23,42,0.06);
-    --ny-shadow-md: 0 8px 24px rgba(15,23,42,0.08);
-    --ny-shadow-lg: 0 16px 48px rgba(15,23,42,0.10);
-    --ny-shadow-xl: 0 24px 64px rgba(15,23,42,0.14);
+    --ny-shadow-xs: 0 1px 3px rgba(15, 23, 42, 0.04);
+    --ny-shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.06);
+    --ny-shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+    --ny-shadow-lg: 0 16px 48px rgba(15, 23, 42, 0.1);
+    --ny-shadow-xl: 0 24px 64px rgba(15, 23, 42, 0.14);
 
     /* ── Border Radius ── */
-    --ny-radius-sm:  8px;
-    --ny-radius-md:  12px;
-    --ny-radius-lg:  18px;
-    --ny-radius-xl:  24px;
+    --ny-radius-sm: 8px;
+    --ny-radius-md: 12px;
+    --ny-radius-lg: 18px;
+    --ny-radius-xl: 24px;
     --ny-radius-pill: 50px;
 
     /* ── Spacing Scale ── */
-    --ny-space-1:  4px;
-    --ny-space-2:  8px;
-    --ny-space-3:  12px;
-    --ny-space-4:  16px;
-    --ny-space-5:  24px;
-    --ny-space-6:  32px;
-    --ny-space-7:  48px;
-    --ny-space-8:  64px;
-    --ny-space-9:  80px;
+    --ny-space-1: 4px;
+    --ny-space-2: 8px;
+    --ny-space-3: 12px;
+    --ny-space-4: 16px;
+    --ny-space-5: 24px;
+    --ny-space-6: 32px;
+    --ny-space-7: 48px;
+    --ny-space-8: 64px;
+    --ny-space-9: 80px;
     --ny-space-10: 100px;
 
     /* ── Typography ── */
-    --ny-font:       'Inter', 'Segoe UI', system-ui, sans-serif;
-    --ny-font-serif: 'Georgia', 'Times New Roman', serif;
+    --ny-font: "Inter", "Segoe UI", system-ui, sans-serif;
+    --ny-font-serif: "Georgia", "Times New Roman", serif;
 
-    --ny-text-xs:   0.75rem;
-    --ny-text-sm:   0.875rem;
+    --ny-text-xs: 0.75rem;
+    --ny-text-sm: 0.875rem;
     --ny-text-base: 1rem;
-    --ny-text-lg:   1.125rem;
-    --ny-text-xl:   1.25rem;
-    --ny-text-2xl:  1.5rem;
-    --ny-text-3xl:  1.875rem;
-    --ny-text-4xl:  2.25rem;
-    --ny-text-5xl:  3rem;
+    --ny-text-lg: 1.125rem;
+    --ny-text-xl: 1.25rem;
+    --ny-text-2xl: 1.5rem;
+    --ny-text-3xl: 1.875rem;
+    --ny-text-4xl: 2.25rem;
+    --ny-text-5xl: 3rem;
 
     /* ── Transitions ── */
-    --ny-ease:       cubic-bezier(0.4, 0, 0.2, 1);
-    --ny-ease-out:   cubic-bezier(0, 0, 0.2, 1);
-    --ny-ease-in:    cubic-bezier(0.4, 0, 1, 1);
+    --ny-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ny-ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ny-ease-in: cubic-bezier(0.4, 0, 1, 1);
     --ny-transition: all 0.25s var(--ny-ease);
 
     /* ── Layout ── */
-    --ny-container:  1200px;
-    --ny-navbar-h:   80px;      /* height of floating navbar */
+    --ny-container: 1200px;
+    --ny-navbar-h: 80px; /* height of floating navbar */
 }
 
 /* ── Google Font Import ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
 /* ── Base Reset (additive, not destructive) ── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -98,5 +99,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-img { max-width: 100%; display: block; }
-a { color: inherit; }
+img {
+    max-width: 100%;
+    display: block;
+}
+a {
+    color: inherit;
+}

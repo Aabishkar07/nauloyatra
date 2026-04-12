@@ -1,5 +1,3 @@
-
-
 <!-- ===== FLOATING NAVBAR ===== -->
 <div class="navbar-wrapper">
     <nav class="main-navbar">
@@ -25,12 +23,15 @@
                         href="{{ route('blog') }}">Blog</a></li>
                 <li class="has-dropdown">
                     <a class="nav-link {{ request()->routeIs('aboutUs') || request()->routeIs('contactUs') ? 'active' : '' }}"
-                        href="#" onclick="return false;">Company <i class="bi bi-chevron-down" style="font-size:0.65rem;opacity:0.7;"></i></a>
+                        href="#" onclick="return false;">Company <i class="bi bi-chevron-down"
+                            style="font-size:0.65rem;opacity:0.7;"></i></a>
                     <div class="custom-dropdown">
-                        <a href="{{ route('aboutUs') }}" class="custom-dropdown-item {{ request()->routeIs('aboutUs') ? 'active' : '' }}">
+                        <a href="{{ route('aboutUs') }}"
+                            class="custom-dropdown-item {{ request()->routeIs('aboutUs') ? 'active' : '' }}">
                             <i class="bi bi-people"></i> About Us
                         </a>
-                        <a href="{{ route('contactUs') }}" class="custom-dropdown-item {{ request()->routeIs('contactUs') ? 'active' : '' }}">
+                        <a href="{{ route('contactUs') }}"
+                            class="custom-dropdown-item {{ request()->routeIs('contactUs') ? 'active' : '' }}">
                             <i class="bi bi-envelope"></i> Contact
                         </a>
                     </div>
@@ -76,7 +77,8 @@
         <div class="mobile-panel d-lg-none" id="mobilePanel">
             <ul class="mob-nav-list">
                 <li><a class="mob-nav-link {{ request()->routeIs('home') ? 'active' : '' }}"
-                        href="{{ route('home') }}"><span><i class="bi bi-house me-2 opacity-50"></i>Home</span></a></li>
+                        href="{{ route('home') }}"><span><i class="bi bi-house me-2 opacity-50"></i>Home</span></a>
+                </li>
                 <li><a class="mob-nav-link {{ request()->routeIs('user.travelPackage.show') ? 'active' : '' }}"
                         href="{{ route('user.travelPackage.show') }}"><span><i
                                 class="bi bi-bag me-2 opacity-50"></i>Packages</span></a></li>
@@ -108,7 +110,7 @@
                     </form>
                 @else
                     <a href="{{ route('login') }}"
-                        class="btn-login text-decoration-none flex-grow-1 text-center py-2 border rounded-pill">Login</a>
+                        class="btn-login text-decoration-none flex-grow-1 text-center py-2 rounded-pill">Login</a>
                     <a href="{{ route('register') }}"
                         class="btn-register text-decoration-none flex-grow-1 text-center py-2 rounded-pill">Register</a>
                 @endauth

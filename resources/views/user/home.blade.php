@@ -220,14 +220,14 @@
                             : asset('image/uploads/travelPackage/empty-image.png');
                     @endphp
 
-                    <div class="offer-card">
+                    <div class="offer-card position-relative">
                         <div class="offer-badge">
                             <span class="discount-text">20% OFF</span>
                         </div>
                         <div class="offer-image">
                             <img src="{{ $imagePath }}" alt="{{ $package->package_name }}">
                             <div class="offer-overlay">
-                                <a href="{{ route('user.packagePage', $package->id) }}" class="view-offer-btn">
+                                <a href="{{ route('user.packagePage', $package->id) }}" class="view-offer-btn stretched-link">
                                     <i class="bi bi-eye"></i>
                                     View Details
                                 </a>
@@ -366,7 +366,7 @@
                                 @endphp
 
                                 <div class="swiper-slide">
-                                    <div class="destination-card">
+                                    <div class="destination-card position-relative">
                                         <div class="dest-image">
                                             <img src="{{ $imagePath }}" alt="{{ $package->package_name }}">
                                             <div class="dest-overlay">
@@ -378,7 +378,7 @@
                                                         {{ $package->duration }} Days
                                                     </div>
                                                     <a href="{{ route('user.packagePage', $package->id) }}"
-                                                        class="dest-explore-btn">
+                                                        class="dest-explore-btn stretched-link">
                                                         Explore
                                                         <i class="bi bi-arrow-right"></i>
                                                     </a>
@@ -771,7 +771,7 @@
                             : asset('image/uploads/blog/empty-image.png');
                     @endphp
 
-                    <article class="blog-card">
+                    <article class="blog-card position-relative">
                         <div class="blog-image">
                             <img src="{{ $blogImg }}" alt="{{ $blog->title }}">
                             <div class="blog-category">Travel Tips</div>
@@ -783,7 +783,7 @@
                             </div>
                             <h3 class="blog-title">{{ Str::limit($blog->title, 60) }}</h3>
                             <p class="blog-excerpt">{{ Str::limit(strip_tags($blog->description ?? ''), 100) }}</p>
-                            <a href="{{ route('blog.page', $blog->id) }}" class="read-more-btn">
+                            <a href="{{ route('blog.page', $blog->id) }}" class="read-more-btn stretched-link">
                                 Read More
                                 <i class="bi bi-arrow-right"></i>
                             </a>
