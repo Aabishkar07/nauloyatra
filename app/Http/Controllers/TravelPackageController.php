@@ -12,20 +12,14 @@ use Illuminate\Support\Facades\File;
 
 class TravelPackageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('components.admin-components.travelPackage.add-travel-package-model');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $rules =[
+        $rules = [
             'package_name' => 'required|string|max:255',
             'image_1' => 'nullable|image|mimes:jpeg,svg,png,jpg,gif,webp|max:10240', // Ensure image file, max 10MB
             'image_2' => 'nullable|image|mimes:jpeg,svg,png,jpg,gif,webp|max:10240', // Ensure image file, max 10MB
@@ -41,10 +35,10 @@ class TravelPackageController extends Controller
             'per_child_fee' => 'required|numeric|min:0',
         ];
 
-        $validator = Validator::make($request->all(),  $rules);
+        $validator = Validator::make($request->all(), $rules);
         //to show massages | check validate
         if ($validator->fails()) {
-            return redirect()->route('admin.travelPackage.show')->withErrors($validator)->withInput();
+            return redirect()->route('admin.addPackage.create')->withErrors($validator)->withInput();
         }
 
         //to store data code here
@@ -68,7 +62,7 @@ class TravelPackageController extends Controller
         //for image 1
         if ($request->hasFile('image_1')) {
 
-                
+
             $image_1 = $request->file('image_1');
             $ext = $image_1->getClientOriginalExtension();
             $imageName = time() . uniqid('_img1_', true) . '.' . $ext;
@@ -76,10 +70,10 @@ class TravelPackageController extends Controller
             $travelPackage->image_1 = $imageName;
             $travelPackage->save();
         }
-         //for image 2
-         if ($request->hasFile('image_2')) {
+        //for image 2
+        if ($request->hasFile('image_2')) {
 
-                
+
             $image_2 = $request->file('image_2');
             $ext = $image_2->getClientOriginalExtension();
             $imageName = time() . uniqid('_img2_', true) . '.' . $ext;
@@ -87,10 +81,10 @@ class TravelPackageController extends Controller
             $travelPackage->image_2 = $imageName;
             $travelPackage->save();
         }
-         //for image 3
-         if ($request->hasFile('image_3')) {
+        //for image 3
+        if ($request->hasFile('image_3')) {
 
-                
+
             $image_3 = $request->file('image_3');
             $ext = $image_3->getClientOriginalExtension();
             $imageName = time() . uniqid('_img3_', true) . '.' . $ext;
@@ -98,11 +92,11 @@ class TravelPackageController extends Controller
             $travelPackage->image_3 = $imageName;
             $travelPackage->save();
         }
-        
+
 
         // Process the validated data, such as saving it to the database
         return redirect()->route('admin.travelPackage.show')->with('success', 'Travel Package created successfully');
-        
+
     }
 
     /**
@@ -110,13 +104,13 @@ class TravelPackageController extends Controller
      */
     public function showForAdmin(travelPackage $travelPackage)
     {
-        $travelPackage = travelPackage::orderBy('created_at','DESC')->get();
+        $travelPackage = travelPackage::orderBy('created_at', 'DESC')->get();
         return view('admin.addTravelPackage', compact('travelPackage')); // Pass data to the view
     }
 
     public function showForUser(travelPackage $travelPackage)
     {
-        $travelPackage = travelPackage::orderBy('created_at','DESC')->get();
+        $travelPackage = travelPackage::orderBy('created_at', 'DESC')->get();
         return view('user.package', compact('travelPackage')); // Pass data to the view
     }
 
@@ -129,12 +123,14 @@ class TravelPackageController extends Controller
     }
 
     // for user travel package page
-    public function showTravelPackagePage($id){
+    public function showTravelPackagePage($id)
+    {
         $travelPackage = travelPackage::findOrFail($id);
-        return view('user.packagePage',[ 'travelPackage' => $travelPackage
-        
-    ]);
-        
+        return view('user.packagePage', [
+            'travelPackage' => $travelPackage
+
+        ]);
+
     }
 
     /**
@@ -143,7 +139,7 @@ class TravelPackageController extends Controller
     public function edit($id)
     {
         $travelPackage = travelPackage::findOrFail($id);
-        return view('admin.editTravelPackage',[
+        return view('admin.editTravelPackage', [
             'travelPackage' => $travelPackage
         ]);
     }
@@ -155,7 +151,7 @@ class TravelPackageController extends Controller
     {
         $travelPackage = travelPackage::findOrFail($id);
 
-        $rules =[
+        $rules = [
             'package_name' => 'required|string|max:255',
             'image_1' => 'nullable|image|mimes:jpeg,svg,png,jpg,gif,webp|max:10240', // Ensure image file, max 10MB
             'image_2' => 'nullable|image|mimes:jpeg,svg,png,jpg,gif,webp|max:10240', // Ensure image file, max 10MB
@@ -171,7 +167,7 @@ class TravelPackageController extends Controller
             'per_child_fee' => 'required|numeric|min:0',
         ];
 
-        $validator = Validator::make($request->all(),  $rules);
+        $validator = Validator::make($request->all(), $rules);
         //to show massages | check validate
         if ($validator->fails()) {
             return redirect()->route('admin.travelPackage.show', $travelPackage->id)->withErrors($validator)->withInput();
@@ -193,18 +189,18 @@ class TravelPackageController extends Controller
         $travelPackage->save();
 
 
-        
+
         //set the attribute for images
         //for image 1
         if ($request->hasFile('image_1')) {
 
             //delete old image
-            $imagePath = public_path('upload/travelPackage/'.$travelPackage->image_1);
+            $imagePath = public_path('image/uploads/travelPackage/' . $travelPackage->image_1);
             //check image is it defalt or not
-            if($travelPackage->image_1 !== 'empty-image.png' && File::exists( $imagePath)){
-                File::delete( $imagePath );
+            if ($travelPackage->image_1 !== 'empty-image.png' && File::exists($imagePath)) {
+                File::delete($imagePath);
             }
-                
+
             $image_1 = $request->file('image_1');
             $ext = $image_1->getClientOriginalExtension();
             $imageName = time() . uniqid('_img1_', true) . '.' . $ext;
@@ -218,10 +214,10 @@ class TravelPackageController extends Controller
         if ($request->hasFile('image_2')) {
 
             //delete old image
-            $imagePath = public_path('upload/travelPackage/'.$travelPackage->image_2);
+            $imagePath = public_path('image/uploads/travelPackage/' . $travelPackage->image_2);
             //check image is it defalt or not
-            if($travelPackage->image_2 !== 'empty-image.png' && File::exists( $imagePath)){
-                File::delete( $imagePath );
+            if ($travelPackage->image_2 !== 'empty-image.png' && File::exists($imagePath)) {
+                File::delete($imagePath);
             }
 
             $image_2 = $request->file('image_2');
@@ -235,10 +231,10 @@ class TravelPackageController extends Controller
         if ($request->hasFile('image_3')) {
 
             //delete old image
-            $imagePath = public_path('upload/travelPackage/'.$travelPackage->image_3);
+            $imagePath = public_path('image/uploads/travelPackage/' . $travelPackage->image_3);
             //check image is it defalt or not
-            if($travelPackage->image_3 !== 'empty-image.png' && File::exists( $imagePath)){
-                File::delete( $imagePath );
+            if ($travelPackage->image_3 !== 'empty-image.png' && File::exists($imagePath)) {
+                File::delete($imagePath);
             }
 
             $image_3 = $request->file('image_3');
@@ -251,7 +247,7 @@ class TravelPackageController extends Controller
 
         // Process the validated data, such as saving it to the database
         return redirect()->route('admin.travelPackage.show')->with('success', 'Travel Package Updated successfully');
-        
+
     }
 
     /**
@@ -262,29 +258,26 @@ class TravelPackageController extends Controller
         //start booking delete ( delete relationShip)
         $bookings = booking::where('package_id', $id)->get();
         foreach ($bookings as $booking) {
-        $booking->delete();
-    }
+            $booking->delete();
+        }
 
         //start travel package delete
         $travelPackage = travelPackage::findOrFail($id);
 
         //delete image 1
-        $imagePath = public_path('upload/blog/'.$travelPackage->image_1);
-        //check image is it defalt or not and delete
-        if($travelPackage->image_1 !== 'empty-image.png' && File::exists( $imagePath)){
-            File::delete( $imagePath );
+        $imagePath = public_path('image/uploads/travelPackage/' . $travelPackage->image_1);
+        if ($travelPackage->image_1 !== 'empty-image.png' && File::exists($imagePath)) {
+            File::delete($imagePath);
         }
         //delete image 2
-        $imagePath = public_path('upload/blog/'.$travelPackage->image_2);
-        //check image is it defalt or not and delete
-        if($travelPackage->image_2 !== 'empty-image.png' && File::exists( $imagePath)){
-            File::delete( $imagePath );
+        $imagePath = public_path('image/uploads/travelPackage/' . $travelPackage->image_2);
+        if ($travelPackage->image_2 !== 'empty-image.png' && File::exists($imagePath)) {
+            File::delete($imagePath);
         }
         //delete image 3
-        $imagePath = public_path('upload/blog/'.$travelPackage->image_3);
-        //check image is it defalt or not and delete
-        if($travelPackage->image_3 !== 'empty-image.png' && File::exists( $imagePath)){
-            File::delete( $imagePath );
+        $imagePath = public_path('image/uploads/travelPackage/' . $travelPackage->image_3);
+        if ($travelPackage->image_3 !== 'empty-image.png' && File::exists($imagePath)) {
+            File::delete($imagePath);
         }
 
         //delete bolg post from database

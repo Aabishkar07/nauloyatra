@@ -1,92 +1,309 @@
-{{-- in layouts folder, mainStructure file has user navigation bar and footer --}}
 @extends('layouts/mainStructure')
+
+@section('styles')
+<link rel="stylesheet" href="{{ asset('css/user_css/contactUs.css') }}">
+@endsection
 
 @section('content')
 
+{{-- ═══════════════════════════════════════════
+    HERO SECTION
+═══════════════════════════════════════════ --}}
+<section class="cu-hero">
+    <div class="cu-hero-bg"></div>
+    <div class="cu-hero-overlay"></div>
 
+    <div class="cu-hero-content">
+        <span class="cu-eyebrow">
+            <i class="bi bi-chat-dots-fill"></i> Get In Touch
+        </span>
+        <h1 class="cu-hero-title">We'd Love to<br><span>Hear From You</span></h1>
+        <p class="cu-hero-sub">Have questions about our packages or need a custom Himalayan itinerary?<br>Our Nepal travel experts are here to help you every step of the way.</p>
 
-    {{-- map --}}
-    <div class="ms-2 map-position" style="margin-top: -25px;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1012910.4346338012!2d79.23353424605882!3d7.389554877447044!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afd153d55c804ff%3A0x57355f14d97f87a5!2sYm%20Travels%20%26%20Tours%20Pvt%20Ltd!5e0!3m2!1sen!2slk!4v1714190419622!5m2!1sen!2slk" 
-      width="1500" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-
+        <div class="cu-stats-row">
+            <div class="cu-stat">
+                <span class="cu-stat-num">24/7</span>
+                <span class="cu-stat-label">Support</span>
+            </div>
+            <div class="cu-stat-divider"></div>
+            <div class="cu-stat">
+                <span class="cu-stat-num">< 2h</span>
+                <span class="cu-stat-label">Response Time</span>
+            </div>
+            <div class="cu-stat-divider"></div>
+            <div class="cu-stat">
+                <span class="cu-stat-num">5000+</span>
+                <span class="cu-stat-label">Happy Travelers</span>
+            </div>
+        </div>
     </div>
 
-    {{-- Email contact form --}}
-    <div class="d-flex justify-content-end pe-5" style="margin-right: 60px">
-      <div class="contac-form p-3">
-        <form action="{{route('user.contactUs.store')}}" method="post">
-          @csrf
+    {{-- Scroll indicator --}}
+    <div class="cu-scroll-hint">
+        <i class="bi bi-chevron-double-down"></i>
+    </div>
+</section>
 
-          <div class="message-overlay">
-            {{-- To display validation errors or success messages --}}
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="fw-medium">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                    <li class="fw-light">try again</li>
-                </ul>
-            </div>
-            @endif
-      
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
+{{-- ═══════════════════════════════════════════
+    QUICK CONTACT CARDS
+═══════════════════════════════════════════ --}}
+<section class="cu-quick-cards">
+    <div class="cu-container">
+        <div class="cu-cards-grid">
+            <div class="cu-qcard">
+                <div class="cu-qcard-icon cu-red">
+                    <i class="bi bi-geo-alt-fill"></i>
                 </div>
-            @endif
-          </div>
-
-            <div class="form-floating mb-3">
-              <input type="text" name="user_name" class="form-control" id="floatingInput" placeholder="Full Name">
-              <label for="floatingInput">Full Name</label>
+                <div class="cu-qcard-body">
+                    <h4>Our Office</h4>
+                    <p>Thamel, Kathmandu<br>Nepal 44600</p>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-              <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-              <label for="floatingInput">Email address</label>
+            <div class="cu-qcard">
+                <div class="cu-qcard-icon cu-green">
+                    <i class="bi bi-whatsapp"></i>
+                </div>
+                <div class="cu-qcard-body">
+                    <h4>WhatsApp Us</h4>
+                    <p>(+977) 98-0000-0000<br><span class="cu-badge-live"><i class="bi bi-circle-fill"></i> Available Now</span></p>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-              <input type="text" name="subject" class="form-control" id="floatingInput" placeholder="Full Name">
-              <label for="floatingInput">Subject</label>
+            <div class="cu-qcard">
+                <div class="cu-qcard-icon cu-blue">
+                    <i class="bi bi-envelope-fill"></i>
+                </div>
+                <div class="cu-qcard-body">
+                    <h4>Email Us</h4>
+                    <p>info@nauloyatra.com<br>bookings@nauloyatra.com</p>
+                </div>
             </div>
-            <div class="form-floating">
-              <textarea class="form-control" name="discription" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 200px"></textarea>
-              <label for="floatingTextarea2">Your Massage</label>
+            <div class="cu-qcard">
+                <div class="cu-qcard-icon cu-orange">
+                    <i class="bi bi-clock-fill"></i>
+                </div>
+                <div class="cu-qcard-body">
+                    <h4>Office Hours</h4>
+                    <p>Sun – Fri: 9am – 6pm<br>Saturday: 10am – 3pm</p>
+                </div>
             </div>
-      
-            {{-- search button --}}
-            <div class="d-grid gap-2 mt-3">
-              <button type="submit" class="btn btn-primary fw-bold fs-5">Send a Massage</button>
-            </div>
-          </form>
-      </div>
+        </div>
     </div>
-    
+</section>
 
-    {{-- details section --}}
-    <div style="margin-top: 95px; margin-bottom: 100px;">
-      {{-- <h2 class="mt-5">Contac Us</h2> --}}
-      <div class="d-flex justify-content-start gap-5">
-        <ul>
-          <li><h5>Address</h5></li>
-          <li><address>A/24/2, St.Anna Road,Puttalam, Sri Lanka.</address></li>
-        </ul>
-    
-        <ul>
-          <li><h5>Customer Care</h5></li>
-          <li>(+94)74 133 8008</li>
-        </ul>
-    
-        <ul>
-          <li><h5>Follow Us On Social MEadia</h5></li>
-          <li>
-            <img src="{{ asset('image/help-tools/socialMeadia icons.svg') }}" alt="socialMeadia icon">
-          </li>
-        </ul>
+{{-- ═══════════════════════════════════════════
+    MAIN CONTENT: FORM + SIDEBAR
+═══════════════════════════════════════════ --}}
+<section class="cu-main-section">
+    <div class="cu-container">
+        <div class="cu-main-grid">
 
-      </div>
+            {{-- ─── MESSAGE FORM ─── --}}
+            <div class="cu-form-col">
+                <div class="cu-form-card">
+                    <div class="cu-form-header">
+                        <div class="cu-form-badge">
+                            <i class="bi bi-send-fill"></i> Send a Message
+                        </div>
+                        <h2>Plan Your Nepal Adventure</h2>
+                        <p>Fill in the details below and we'll get back to you within 2 hours.</p>
+                    </div>
+
+                    {{-- Alerts --}}
+                    @if ($errors->any())
+                        <div class="cu-alert cu-alert-error">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <div>
+                                <strong>Please fix the following:</strong>
+                                <ul class="mb-0 mt-1">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if (session('success'))
+                        <div class="cu-alert cu-alert-success">
+                            <i class="bi bi-check-circle-fill cu-alert-icon"></i>
+                            <span>{{ session('success') }}</span>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('user.contactUs.store') }}" method="post" class="cu-form">
+                        @csrf
+
+                        <div class="cu-form-row">
+                            <div class="cu-field">
+                                <label for="user_name">
+                                    <i class="bi bi-person"></i> Full Name
+                                </label>
+                                <input type="text" id="user_name" name="user_name"
+                                       value="{{ old('user_name') }}"
+                                       placeholder="e.g. Aarav Thapa" required>
+                            </div>
+                            <div class="cu-field">
+                                <label for="email">
+                                    <i class="bi bi-envelope"></i> Email Address
+                                </label>
+                                <input type="email" id="email" name="email"
+                                       value="{{ old('email') }}"
+                                       placeholder="you@example.com" required>
+                            </div>
+                        </div>
+
+                        <div class="cu-field">
+                            <label for="subject">
+                                <i class="bi bi-chat-left-text"></i> Subject
+                            </label>
+                            <input type="text" id="subject" name="subject"
+                                   value="{{ old('subject') }}"
+                                   placeholder="e.g. Everest Base Camp Trek inquiry" required>
+                        </div>
+
+                        <div class="cu-field">
+                            <label for="discription">
+                                <i class="bi bi-pencil-square"></i> Your Message
+                            </label>
+                            <textarea id="discription" name="discription" rows="6"
+                                      placeholder="Tell us your travel dates, group size, destinations you'd love to visit in Nepal...">{{ old('discription') }}</textarea>
+                        </div>
+
+                        <div class="cu-form-row cu-trip-prefs">
+                            <div class="cu-field">
+                                <label for="trip_type">
+                                    <i class="bi bi-map"></i> Trip Type
+                                </label>
+                                <select id="trip_type" name="trip_type">
+                                    <option value="">Select a trip type</option>
+                                    <option>Trekking / Hiking</option>
+                                    <option>Cultural Tour</option>
+                                    <option>Adventure Tour</option>
+                                    <option>Wildlife Safari</option>
+                                    <option>Helicopter Tour</option>
+                                    <option>Custom Package</option>
+                                </select>
+                            </div>
+                            <div class="cu-field">
+                                <label for="travelers">
+                                    <i class="bi bi-people"></i> Number of Travelers
+                                </label>
+                                <select id="travelers" name="travelers">
+                                    <option value="">Select group size</option>
+                                    <option>Solo (1)</option>
+                                    <option>Couple (2)</option>
+                                    <option>Small Group (3–6)</option>
+                                    <option>Large Group (7+)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="cu-submit-btn">
+                            <span>Send My Inquiry</span>
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            {{-- ─── SIDEBAR ─── --}}
+            <aside class="cu-sidebar">
+
+                {{-- Reach Us Block --}}
+                <div class="cu-sidebar-card cu-reach-card">
+                    <div class="cu-reach-img-wrap">
+                        <img src="{{ asset('image/bg.jfif') }}" alt="Nepal landscape" class="cu-reach-img">
+                        <div class="cu-reach-overlay">
+                            <img src="{{ asset('image/mainlogo.png') }}" alt="NauloYatra" class="cu-reach-logo">
+                            <span>NauloYatra</span>
+                        </div>
+                    </div>
+
+                    <div class="cu-reach-info">
+                        <div class="cu-reach-item">
+                            <div class="cu-reach-icon" style="background:#fef2f2;color:#d6272b;">
+                                <i class="bi bi-geo-alt-fill"></i>
+                            </div>
+                            <div>
+                                <strong>Office Address</strong>
+                                <p>Thamel, Kathmandu, Nepal 44600</p>
+                            </div>
+                        </div>
+                        <div class="cu-reach-item">
+                            <div class="cu-reach-icon" style="background:#f0fdf4;color:#16a34a;">
+                                <i class="bi bi-telephone-fill"></i>
+                            </div>
+                            <div>
+                                <strong>Phone / WhatsApp</strong>
+                                <p>(+977) 98-0000-0000</p>
+                            </div>
+                        </div>
+                        <div class="cu-reach-item">
+                            <div class="cu-reach-icon" style="background:#eff6ff;color:#2563eb;">
+                                <i class="bi bi-envelope-fill"></i>
+                            </div>
+                            <div>
+                                <strong>Email</strong>
+                                <p>info@nauloyatra.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cu-social-strip">
+                        <span>Follow Us</span>
+                        <div class="cu-social-links">
+                            <a href="#" class="cu-social-btn cu-fb"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="cu-social-btn cu-ig"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="cu-social-btn cu-tw"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" class="cu-social-btn cu-yt"><i class="bi bi-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Why Contact Us --}}
+                <div class="cu-sidebar-card cu-why-card">
+                    <h4 class="cu-why-title"><i class="bi bi-star-fill cu-star"></i> Why Contact Us?</h4>
+                    <ul class="cu-why-list">
+                        <li><i class="bi bi-check-circle-fill"></i> Free customized itinerary planning</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Best price guarantee — no hidden fees</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Expert local guides from Nepal</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 24/7 on-trip emergency support</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Flexible booking & free cancellation</li>
+                    </ul>
+                </div>
+
+            </aside>
+        </div>
+
+        {{-- ─── MAP ─── --}}
+        <div class="cu-map-wrap">
+            <div class="cu-map-label">
+                <i class="bi bi-pin-map-fill"></i> Find Us in Thamel, Kathmandu
+            </div>
+            <div class="cu-map-frame">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.8741565694754!2d85.30620221506277!3d27.715348682789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18fcb77fd4bd%3A0x58099b903e0517e8!2sThamel%2C%20Kathmandu%2044600%2C%20Nepal!5e0!3m2!1sen!2snp!4v1680000000000!5m2!1sen!2snp"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
     </div>
-    
+</section>
+
+{{-- ═══════════════════════════════════════════
+    BOTTOM CTA BANNER
+═══════════════════════════════════════════ --}}
+<section class="cu-cta-banner">
+    <div class="cu-container cu-cta-inner">
+        <div>
+            <h3>Ready to explore Nepal?</h3>
+            <p>Browse our curated packages and find your perfect adventure.</p>
+        </div>
+        <a href="{{ route('user.travelPackage.show') }}" class="cu-cta-btn">
+            Explore Packages <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+</section>
+
 @endsection

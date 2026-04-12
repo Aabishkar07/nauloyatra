@@ -1,103 +1,161 @@
-@extends('layouts/admin-layouts/main-structure')
+@extends('layouts.admin-layouts.main-structure')
 
 @section('admincontent')
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h2 class="fw-light">Booking Details</h2>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+        <h2 class="h3 mb-0 fw-bold text-dark">Booking Management</h2>
     </div>
-    <div class="container">
-        {{-- main three content --}}
-        <div class="row text-center fw-semibold">
-            <div class="col">
-                <div class="Booking-detail-bg-first-3  bg-primary-subtle">
-                    <p class="fs-3"> {{ $allReservation }} </p>
-                    All Resavations
-                </div>
-            </div>
-            <div class="col">
-                <div class="Booking-detail-bg-first-3 bg-primary-subtle">
-                    <p class="fs-3"> {{ $conformCountReservation }} </p>
-                    Conformed Resavations
-                </div>
-            </div>
-            <div class="col">
-                <div class="Booking-detail-bg-first-3 bg-danger-subtle">
-                    <p class="fs-3"> {{ $rejectedCountReservation }} </p>
-                    Rejected resavations
-                </div>
-            </div>
-            <div class="col">
-                <div class="Booking-detail-bg-first-3 bg-warning-subtle ">
-                    <p class="fs-3"> {{ $pendingCountPayment }}</p>
-                    User Payment (pending) 
-                </div>
-            </div>
-            <div class="col">
-                <div class="Booking-detail-bg-first-3 bg-warning-subtle ">
-                    <p class="fs-3"> {{ $conformCountPayment }}</p>
-                    To Check Payment and <br> Conform Resavation
+
+    <!-- Quick Stats -->
+    <div class="row g-4 mb-4">
+        <!-- All Reservations -->
+        <div class="col-12 col-md-4 col-xl-2">
+            <div class="stat-card">
+                <div class="stat-card-title text-muted mb-1">Total Bookings</div>
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-primary bg-opacity-10 text-primary me-3" style="width:40px;height:40px;font-size:1.2rem;">
+                        <i class="bi bi-journal-text"></i>
+                    </div>
+                    <div class="stat-card-value fs-4">{{ $allReservation }}</div>
                 </div>
             </div>
         </div>
-
-        {{-- details Table --}}
-        <table class="table table-bordered mt-5 three-D-bg">
-            <thead>
-                <tr align="center" class="table-dark">
-                <th>ID</th>
-                <th style="text-align: left;">Tour Name</th>
-                <th scope="col">Travel Date</th>
-                <th scope="col">Duration</th>
-                <th style="text-align: right;">Total</th>
-                <th scope="col">Reservation Status</th>
-                <th scope="col">Payment Status</th>
-                <th scope="col"> </th>
-                </tr>
-            </thead>
-            
-            <tbody class="table-group-divider">
-                <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-                @foreach ($bookings as $booking)
-                <tr>
-                    <td>#{{ $booking->id }}</td>
-                    <td>
-                    {{ $booking->package->package_name }}
-                    </td>
-                    <td style="text-align: center;">{{ \Carbon\Carbon::parse($booking->travel_date)->format('Y-m-d') }}</td>
-                    <td align="center">{{ $booking->package->duration }} {{ $booking->package->duration_type }} </td>
-                    <td align="right">{{ $booking->total_fee }} $</td>
-                    <td style="text-align: center;">
-                        @if ( $booking->reservation_status  == "pending")
-                            <span class="badge rounded-pill text-bg-info p-2 ">{{ $booking->reservation_status }}</span>
-                        @elseif ( $booking->reservation_status  == "Conform")
-                            <span class="badge rounded-pill text-bg-success p-2 ">{{ $booking->reservation_status }}</span>
-                        @elseif ( $booking->reservation_status  == "Reject")
-                            <span class="badge rounded-pill text-bg-danger p-2 ">{{ $booking->reservation_status }}</span>
-                        @endif
-                        
-                    </td>
-
-                    <td style="text-align: center;">
-                        @if ( $booking->payment_status  == "pending")
-                            <span class="badge rounded-pill text-bg-info p-2 ">{{ $booking->payment_status }}</span>
-                        @elseif ( $booking->payment_status  == "Success")
-                            <span class="badge rounded-pill text-bg-success p-2 ">{{ $booking->payment_status }}</span>
-                        @elseif ( $booking->payment_status  == "Reject")
-                            <span class="badge rounded-pill text-bg-danger p-2 ">{{ $booking->payment_status }}</span>
-                        @endif
-                    </td>
-                    <td style="text-align: center; background-color:rgb(219, 219, 219);">
-                        <a href="{{route('admin.showOneUserBookingDataAll', $booking->id  )}}" class="btn btn-primary btn-sm">View</a>
-                        <a href="" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-
+        <!-- Confirmed -->
+        <div class="col-12 col-md-4 col-xl-2">
+            <div class="stat-card">
+                <div class="stat-card-title text-muted mb-1">Confirmed</div>
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-success bg-opacity-10 text-success me-3" style="width:40px;height:40px;font-size:1.2rem;">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                    <div class="stat-card-value fs-4">{{ $conformCountReservation }}</div>
+                </div>
+            </div>
+        </div>
+        <!-- Rejected -->
+        <div class="col-12 col-md-4 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-card-title text-muted mb-1">Rejected Reservations</div>
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-danger bg-opacity-10 text-danger me-3" style="width:40px;height:40px;font-size:1.2rem;">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </div>
+                    <div class="stat-card-value fs-4">{{ $rejectedCountReservation }}</div>
+                </div>
+            </div>
+        </div>
+        <!-- Pending Payment -->
+        <div class="col-12 col-md-6 col-xl-2">
+            <div class="stat-card">
+                <div class="stat-card-title text-muted mb-1">Pending Payment</div>
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-warning bg-opacity-10 text-warning me-3" style="width:40px;height:40px;font-size:1.2rem;">
+                        <i class="bi bi-hourglass-split"></i>
+                    </div>
+                    <div class="stat-card-value fs-4">{{ $pendingCountPayment }}</div>
+                </div>
+            </div>
+        </div>
+        <!-- Payment to check -->
+        <!-- <div class="col-12 col-md-6 col-xl-3">
+            <div class="stat-card border-warning">
+                <div class="stat-card-title text-warning fw-bold mb-1">Needs Action (Payment Paid)</div>
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-warning text-dark me-3" style="width:40px;height:40px;font-size:1.2rem;">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <div class="stat-card-value fs-4">{{ $conformCountPayment }}</div>
+                </div>
+            </div>
+        </div> -->
     </div>
-</main>
 
-    
+    <!-- Details Table -->
+    <div class="admin-card">
+        <div class="admin-card-header">
+            <div><i class="bi bi-ticket-detailed me-2 text-primary"></i> All Booking Records</div>
+        </div>
+        <div class="admin-card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-modern align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th width="8%">ID</th>
+                            <th width="20%">Tour Name</th>
+                            <th width="15%">Travel Date</th>
+                            <th width="12%" class="text-center">Duration</th>
+                            <th width="10%" class="text-end">Total</th>
+                            <th width="12%" class="text-center">Reservation</th>
+                            <th width="12%" class="text-center">Payment</th>
+                            <th width="11%" class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($bookings as $booking)
+                        <tr>
+                            <td class="text-muted fw-medium">#{{ $booking->id }}</td>
+                            <td>
+                                <div class="fw-semibold text-dark text-truncate" style="max-width: 200px;" title="{{ $booking->package->package_name }}">
+                                    {{ $booking->package->package_name }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center text-muted">
+                                    <i class="bi bi-calendar-event me-2"></i>
+                                    {{ \Carbon\Carbon::parse($booking->travel_date)->format('M d, Y') }}
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge-soft-secondary">
+                                    <i class="bi bi-clock me-1"></i> {{ $booking->package->duration }} {{ $booking->package->duration_type }}
+                                </span>
+                            </td>
+                            <td class="text-end fw-bold text-dark">${{ number_format($booking->total_fee, 2) }}</td>
+                            
+                            <!-- Reservation Status -->
+                            <td class="text-center">
+                                @if ( $booking->reservation_status  == "pending")
+                                    <span class="badge-soft-info"><i class="bi bi-hourglass me-1"></i>Pending</span>
+                                @elseif ( $booking->reservation_status  == "Conform")
+                                    <span class="badge-soft-success"><i class="bi bi-check me-1"></i>Confirmed</span>
+                                @elseif ( $booking->reservation_status  == "Reject")
+                                    <span class="badge-soft-danger"><i class="bi bi-x me-1"></i>Rejected</span>
+                                @endif
+                            </td>
+
+                            <!-- Payment Status -->
+                            <td class="text-center">
+                                @if ( $booking->payment_status  == "pending")
+                                    <span class="badge-soft-warning"><i class="bi bi-clock-history me-1"></i>Pending</span>
+                                @elseif ( $booking->payment_status  == "Success")
+                                    <span class="badge-soft-success"><i class="bi bi-check-all me-1"></i>Success</span>
+                                @elseif ( $booking->payment_status  == "Reject")
+                                    <span class="badge-soft-danger"><i class="bi bi-x-circle me-1"></i>Rejected</span>
+                                @endif
+                            </td>
+                            
+                            <!-- Actions -->
+                            <td class="text-end">
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <a href="{{route('admin.showOneUserBookingDataAll', $booking->id  )}}" class="btn-modern btn-modern-primary btn-sm" title="View Details">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            
+            @if(count($bookings) === 0)
+            <div class="text-center py-5 text-muted">
+                <i class="bi bi-inbox fs-1 mb-3 d-block text-secondary"></i>
+                <h5>No Bookings Found</h5>
+                <p>There are currently no booking records in the system.</p>
+            </div>
+            @endif
+        </div>
+    </div>
+</div>
 @endsection

@@ -1,132 +1,147 @@
-@extends('layouts/admin-layouts/main-structure')
+@extends('layouts.admin-layouts.main-structure')
 
 @section('admincontent')
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h2 class="fw-bold">Dashboard</h2>
-        </div>
-        <div class="container">
-            <div class="row mt-5">
-                {{-- All Users summary --}}
-                <div class="col">
-                    <h5 class="text-center bg-secondary text-white p-2">Users</h5>
-                    <div class="user-bg p-4 mb-5">
-                        <table class="table table-borderless">
-                            <tr>
-                                <th>All Users</th>
-                                <th><span class="badge rounded-pill text-bg-primary fs-6"> 3 </span></th>
-                            </tr>
-                            <tr>
-                                <td>Active Users</td>
-                                <th><span class="badge rounded-pill text-bg-success fs-6"> 3 </span></th>
-                            </tr>
-                            <tr>
-                                <td>Not active Users</td>
-                                <th><span class="badge rounded-pill text-bg-warning fs-6"> 3 </span></th>
-                            </tr>
-                        </table>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+        <h2 class="h3 mb-0 fw-bold text-dark">Dashboard Overview</h2>
+        <div class="text-muted small">{{ now()->format('l, F j, Y') }}</div>
+    </div>
+
+    <!-- Stats Grid: Summary -->
+    <div class="row g-4 mb-5">
+        <!-- Users -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="stat-card-title">Total Users</div>
+                        <div class="stat-card-value">3</div>
                     </div>
                 </div>
-
-                {{-- Resavation summary --}}
-                <div class="col">
-                    <h5 class="text-center bg-secondary text-white p-2">Resavation</h5>
-                    <div class="resavation-bg p-4">
-                        <table class="table table-borderless">
-                            <tr>
-                                <th>All Resavation</th>
-                                <th><span class="badge rounded-pill text-bg-primary fs-6"> {{$allReservation}} </span></th>
-                            </tr>
-                            <tr>
-                                <td>Conform Resavation</td>
-                                <th><span class="badge rounded-pill text-bg-success fs-6"> {{$conformCountReservation}} </span></th>
-                            </tr>
-                            <tr>
-                                <td>Reject Resavation</td>
-                                <th><span class="badge rounded-pill text-bg-danger fs-6"> {{ $rejectedCountReservation}} </span></th>
-                            </tr>
-                            <tr>
-                                <td>To Check Payment</td>
-                                <th><span class="badge rounded-pill text-bg-warning fs-6"> {{ $conformCountPayment + $pendingCountPayment }} </span></th>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="mt-4 pt-3 border-top text-sm text-muted d-flex justify-content-between">
+                    <span><span class="badge-soft-success">3</span> Active</span>
+                    <span><span class="badge-soft-warning">3</span> Inactive</span>
                 </div>
-
-                {{-- Blog Post summary --}}
-                <div class="col">
-                    <h5 class="text-center bg-secondary text-white p-2">Blog Post</h5>
-                    <div class="user-bg p-4 mb-5">
-                        <table class="table table-borderless">
-                            <tr>
-                                <th>All Blog Post</th>
-                                <th><span class="badge rounded-pill text-bg-primary fs-6"> {{$allBlogPost}} </span></th>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                {{-- Travel Packages summary --}}
-                <div class="col">
-                    <h5 class="text-center bg-secondary text-white p-2">Travel Packages</h5>
-                    <div class="resavation-bg p-4">
-                        <table class="table table-borderless">
-                            <tr>
-                                <th>All Travel Packges</th>
-                                <th><span class="badge rounded-pill text-bg-primary fs-6"> {{$allTravelPackage}} </span></th>
-                            </tr>
-                            <tr>
-                                <td>Adventure Tour</td>
-                                <th><span class="badge rounded-pill text-bg-secondary fs-6"> {{$AdventureTour}} </span></th>
-                            </tr>
-                            <tr>
-                                <td>Beach Holiday Tour</td>
-                                <th><span class="badge rounded-pill text-bg-secondary fs-6"> {{$BeachHolidayTour}} </span></th>
-                            </tr>
-                            <tr>
-                                <td>Cultural Tour</td>
-                                <th><span class="badge rounded-pill text-bg-secondary fs-6"> {{$CulturalTour}} </span></th>
-                            </tr>
-                            <tr>
-                                <td>Business Trip Tour</td>
-                                <th><span class="badge rounded-pill text-bg-secondary fs-6"> {{$BusinessTripTour}} </span></th>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
             </div>
-
-            {{-- Show upcomming Bookings --}}
-            {{-- <h3>Upcoming Events</h3>
-            <div class="upcoming-events-details p-3 mt-4 bg-black text-white d-flex justify-content-between"> 
-                    <span>Resavation Id</span>
-                    <span>Travel Name</span>
-                    <span>Travel Type</span>
-                    <span>Travel Date</span>
-                    <span>Duration</span>
-                    <span>Action</span>
-                </div>
-                @foreach ($bookings as $booking)
-                <div class="upcoming-events-bg mt-3">
-                  <div class="upcoming-events-details p-3 bg-white text-dark d-flex justify-content-between rounded border border-primary">
-                    <span>{{$booking->id}}</span>
-                    @if (isset($booking->travelPackage))
-                      <span>{{$booking->travelPackage->package_name}}</span>
-                      <span>{{$booking->travelPackage->tour_type}}</span>
-                    @else
-                      <span>Travel Package Not Found</span>
-                      <span>-</span>
-                    @endif
-                    <span>{{$booking->date}}</span>
-                    <span>{{$booking->travelPackage->duration ?? 'N/A'}} days</span>  <button class="btn btn-primary"><b>View</b></button>
-                  </div>
-                </div>
-              @endforeach                  
-            </div> --}}
-
         </div>
-</main>
 
-    
+        <!-- Reservations -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-success bg-opacity-10 text-success">
+                        <i class="bi bi-calendar-check-fill"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="stat-card-title">All Reservations</div>
+                        <div class="stat-card-value">{{$allReservation}}</div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-top text-sm text-muted d-flex justify-content-between">
+                    <span><span class="badge-soft-success">{{$conformCountReservation}}</span> Confirmed</span>
+                    <span><span class="badge-soft-danger">{{$rejectedCountReservation}}</span> Rejected</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payments to check -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="stat-card-title">Payments to Check</div>
+                        <div class="stat-card-value">{{ $conformCountPayment + $pendingCountPayment }}</div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-top text-sm text-muted">
+                    <span>Pending verifications</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Posts -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="stat-card">
+                <div class="d-flex align-items-center">
+                    <div class="stat-icon bg-info bg-opacity-10 text-info">
+                        <i class="bi bi-journal-text"></i>
+                    </div>
+                    <div class="ms-3">
+                        <div class="stat-card-title">Total Blog Posts</div>
+                        <div class="stat-card-value">{{$allBlogPost}}</div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-top text-sm text-muted">
+                    <span>Published articles</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Travel Packages Details -->
+    <div class="admin-card">
+        <div class="admin-card-header">
+            <div>
+                <i class="bi bi-map me-2 text-primary"></i> Travel Packages Breakdown
+            </div>
+            <span class="badge bg-primary rounded-pill px-3">{{$allTravelPackage}} Total</span>
+        </div>
+        <div class="admin-card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-modern">
+                    <thead>
+                        <tr>
+                            <th>Package Category</th>
+                            <th class="text-end">Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded p-2 me-3"><i class="bi bi-compass text-secondary fs-5"></i></div>
+                                    <span class="fw-medium">Adventure Tour</span>
+                                </div>
+                            </td>
+                            <td class="text-end fw-bold">{{$AdventureTour}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded p-2 me-3"><i class="bi bi-brightness-high text-warning fs-5"></i></div>
+                                    <span class="fw-medium">Beach Holiday Tour</span>
+                                </div>
+                            </td>
+                            <td class="text-end fw-bold">{{$BeachHolidayTour}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded p-2 me-3"><i class="bi bi-bank text-info fs-5"></i></div>
+                                    <span class="fw-medium">Cultural Tour</span>
+                                </div>
+                            </td>
+                            <td class="text-end fw-bold">{{$CulturalTour}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded p-2 me-3"><i class="bi bi-briefcase text-primary fs-5"></i></div>
+                                    <span class="fw-medium">Business Trip Tour</span>
+                                </div>
+                            </td>
+                            <td class="text-end fw-bold">{{$BusinessTripTour}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

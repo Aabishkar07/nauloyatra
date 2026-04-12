@@ -1,61 +1,57 @@
-<div class="container mt-3">
-    <div class="row " >
-      @if ( $travelPackage -> isNotEmpty())  
-      @foreach ( $travelPackage as $package)  
-        <div class="col-md-3 p-4">
-          <div class="travelPackage-bg-container post-bg travelPackage-bg">    
-            <div style="height: 200px;">
-                {{-- image --}}
-                @if ($package-> image_1 != "")
-                <img src="{{ asset('image/uploads/travelPackage/'.$package-> image_1) }}" alt="package Image" class="object-fit-contain img-fluid">
+@if ($travelPackage->isNotEmpty())  
+    @foreach ($travelPackage as $package)  
+    <div class="col-lg-4 col-xl-3">
+        <div class="package-card">
+            <div class="position-relative overflow-hidden" style="height: 200px;">
+                @if ($package->image_1 != "")
+                    <img src="{{ asset('image/uploads/travelPackage/'.$package->image_1) }}" class="package-image w-100 h-100" alt="Package Image">
                 @else
-                <img src="{{ asset('image/uploads/travelPackage/empty-image.png') }}" alt="package Image" class="object-fit-contain img-fluid" width="150px">
+                    <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light">
+                        <i class="bi bi-image text-secondary" style="font-size: 3rem;"></i>
+                    </div>
                 @endif
+                <div class="package-badge price-badge">
+                    <i class="bi bi-currency-dollar me-1"></i>{{ $package->price_start_from }}
+                </div>
+                <div class="package-badge type-badge" style="top: 50px;">
+                    <i class="bi bi-geo-alt me-1"></i>{{ $package->tour_type }}
+                </div>
             </div>
-            <hr> 
-            <div style="height: 180px;">
-                <p class="text-black bg-white"> {{ \carbon\carbon::parse($package->created_at)->format('d M, Y') }} </p>
-                <span class="badge text-bg-secondary"> {{ $package->tour_type }} </span>
-                 
-                <h5> {{ $package->package_name }}</h5>
-                <h5> 
-                    <span class="badge text-bg-warning"> From: ${{ $package->price_start_from }} </span>
+            <div class="card-body p-4">
+                <p class="text-muted small mb-2">
+                    <i class="bi bi-calendar3 me-1"></i>Created: {{ \Carbon\Carbon::parse($package->created_at)->format('M d, Y') }}
+                </p>
+                <h5 class="card-title fw-bold mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 3rem;">
+                    {{ $package->package_name }}
                 </h5>
+                
+                <div class="action-buttons">
+                    <a href="{{route('admin.editTravelPackage',$package->id)}}" class="btn btn-outline-primary flex-grow-1">
+                        <i class="bi bi-pencil me-1"></i>Edit
+                    </a>
+                    <a href="{{route('user.packagePage', $package->id)}}" class="btn btn-outline-primary" target="_blank" title="View Details">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
+                    <button onclick="deleteTravelPackage({{ $package->id}});" class="btn btn-outline-danger" title="Delete Package">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <form id="delete-travelPackage-from-{{ $package->id }}" action="{{route('admin.deleteTravelPackage', $package->id)}}" method="post" class="d-none">
+                        @csrf
+                        @method('delete')
+                    </form>
+                </div>
             </div>
-            
-            {{-- buttons --}}
-            <div class="d-flex justify-content-start gap-1">
-              <a href="{{route('admin.editTravelPackage',$package->id)}}" class="btn btn-primary btn-sm">Update</a>
-              <a href="{{route('user.packagePage', $package->id)}}" class="btn btn-secondary btn-sm" target="_blank">View</a>
-              
-              {{-- button for delete the blog post --}}
-              <a href="#" onclick="deleteTravelPackage({{ $package->id}});" class="btn btn-danger btn-sm">Delete</a>
-              <form id="delete-travelPackage-from-{{ $package->id }}" action="{{route('admin.deleteTravelPackage', $package->id)}}" method="post">
-                  @csrf
-                  @method('delete')
-              </form>
-            </div>
-
-          </div>
         </div>
-        {{-- add new row --}}
-        @if ($loop->iteration % 4 === 0) 
-    </div> 
-    {{-- end first row --}}
-
-    <div class="row ">
-        @endif
-      @endforeach
-      @endif
     </div>
-    
-</div>
-
-{{-- script for delete blog post cofomation alert --}}
-<script>
-  function deleteTravelPackage(id){
-    if(confirm("Do you want to Delete Travel Package ?")){
-      document.getElementById('delete-travelPackage-from-' + id).submit();
-    }
-  }
-</script>
+    @endforeach
+@else
+    <div class="col-12">
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <i class="bi bi-luggage"></i>
+            </div>
+            <h4 class="fw-bold text-dark mb-2">No Travel Packages Found</h4>
+            <p class="text-muted mb-0">It looks like you haven't created any travel packages yet. Click "Create Travel Package" above to get started.</p>
+        </div>
+    </div>
+@endif

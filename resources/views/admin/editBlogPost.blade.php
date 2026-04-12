@@ -1,75 +1,125 @@
 @extends('layouts/admin-layouts/main-structure')
 
 @section('admincontent')
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <a href="{{route('admin.addBlog')}}" type="button" class="btn btn-dark">
-            <img src="{{ asset('image/help-tools/back.png') }}" alt="add icon" width="20px">    
-            Back
+    <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+        <div>
+            <h2 class="h3 mb-0 fw-bold text-dark">Edit Blog Post</h2>
+            <p class="text-muted small mb-0 mt-1">Modify article content and cover image</p>
+        </div>
+        <a href="{{ route('admin.addBlog') }}" class="btn btn-outline-secondary shadow-sm">
+            <i class="bi bi-arrow-left me-1"></i> Back to Blog Posts
         </a>
     </div>
-    <h2 class="fw-light mb-4">Edit Blog Post</h2>
-     {{-- To display validation errors or success messages --}}
-     @if ($errors->any())
-     <div class="alert alert-danger">
-         <ul class="fw-medium">
-             @foreach ($errors->all() as $error)
-                 <li>{{ $error }}</li>
-             @endforeach
-             <li class="fw-light">try again</li>
-         </ul>
-     </div>
-    @endif
 
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+    {{-- Alerts --}}
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-3 mb-4" role="alert">
+            <div class="d-flex align-items-start gap-3">
+                <i class="bi bi-exclamation-triangle-fill fs-5 mt-1"></i>
+                <div>
+                    <strong class="d-block mb-1">Please fix the following errors:</strong>
+                    <ul class="mb-0 ps-3">
+                        @foreach ($errors->all() as $error)
+                            <li class="small">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
 
-    <div class="container ">         
-        <form action="{{route('admin.updateBlog', $blog->id)}}" method="post" enctype="multipart/form-data">
-            @method('put')
-            @csrf
-            <div class="mb-3">              
-               <div class="row mb-4">
-                    <div class="col ">                  
-                        {{-- image --}}
-                        @if ($blog-> image != "")
-                            <img src="{{ asset('image/uploads/blog/'.$blog-> image) }}" alt="Blog Post Image" class="object-fit-contain img-fluid bg-for-list">
-                        @else
-                            <img src="{{ asset('image/uploads/blog/empty-image.png') }}" alt="Blog Post Image" class="object-fit-contain img-fluid bg-for-list">
-                        @endif
-                    </div>
-                    <div class="col-8">
-                        <br><br><br><br><br>
-                        <div class="bg-for-list">
-                            <label for="recipient-name" class="col-form-label fw-semibold">Image</label>
-                            <input type="file" name="blogImage" class="form-control" id="recipient-name">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 rounded-3 mb-4" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    <form action="{{ route('admin.updateBlog', $blog->id) }}" method="post" enctype="multipart/form-data">
+        @method('put')
+        @csrf
+        
+        <div class="row g-4">
+            <div class="col-xl-8">
+                <!-- Blog Content Card -->
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-pencil-square text-primary"></i>
+                            <span>Blog Content</span>
                         </div>
                     </div>
-               </div>
+                    <div class="admin-card-body">
+                        <div class="mb-4">
+                            <label for="blogTitle" class="form-label fw-bold small text-muted text-uppercase tracking-wider">Post Title <span class="text-danger">*</span></label>
+                            <input type="text" name="blogTitle" value="{{ old('blogTitle', $blog->title) }}" 
+                                   class="form-control-modern" id="blogTitle">
+                        </div>
+                        
+                        <div class="mb-0">
+                            <label for="blogDescription" class="form-label fw-bold small text-muted text-uppercase tracking-wider">Description / Content <span class="text-danger">*</span></label>
+                            <textarea name="description" class="form-control-modern" id="blogDescription" rows="15">{{ old('description', $blog->discription) }}</textarea>
+                            <div class="mt-2 small text-info">
+                                <i class="bi bi-info-circle me-1"></i> Press <code>Windows + .</code> to add emojis inside the editor
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="bg-for-list">
-                {{-- blog title --}}
-                <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label fw-semibold">Title</label>
-                    <input type="text" name="blogTitle" value="{{old('blogTitle',$blog->title)}}" class="form-control" id="recipient-name">
+            <div class="col-xl-4">
+                <!-- Current Media Card -->
+                <div class="admin-card mb-4 mt-xl-0">
+                    <div class="admin-card-header">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-image text-primary"></i>
+                            <span>Cover Image</span>
+                        </div>
+                    </div>
+                    <div class="admin-card-body">
+                        <div class="mb-4 text-center bg-light p-3 rounded-3 border">
+                            @if ($blog->image != "")
+                                <img src="{{ asset('image/uploads/blog/'.$blog->image) }}" 
+                                     alt="Current Cover" class="img-fluid rounded shadow-sm" style="max-height: 200px; object-fit: cover;">
+                            @else
+                                <div class="py-5 text-muted">
+                                    <i class="bi bi-image fs-1 d-block mb-2"></i>
+                                    No image set
+                                </div>
+                            @endif
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="blogImage" class="form-label fw-bold small text-muted text-uppercase tracking-wider">Change Feature Image</label>
+                            <input type="file" name="blogImage" class="form-control-modern" id="blogImage">
+                            <div class="mt-2 text-muted small">
+                                Selecting a new image will replace the current one.
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {{-- blog Description --}}
-                <div class="mb-4">
-                    <label for="message-text" class="col-form-label fw-semibold">Description</label>
-                    <textarea name="description"  class="form-control" id="blogDescription" rows="10"> {{old('description',$blog->discription)}} </textarea>
+                
+                <!-- Actions Card -->
+                <div class="admin-card sticky-top" style="top: 2rem; z-index: 10;">
+                    <div class="admin-card-header">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check2-circle text-primary"></i>
+                            <span>Save Changes</span>
+                        </div>
+                    </div>
+                    <div class="admin-card-body d-grid gap-3">
+                        <button type="submit" class="btn btn-modern btn-modern-primary btn-lg">
+                            <i class="bi bi-save2 me-2"></i> Update Post
+                        </button>
+                        <a href="{{ route('admin.addBlog') }}" class="btn btn-outline-secondary btn-modern">
+                            Cancel
+                        </a>
+                    </div>
                 </div>
-                <p class="text-info">Enter <code> Windows + . </code> to add icons</p>
             </div>
-            <div class="modal-footer mt-4">
-                <a href="{{route('admin.addBlog')}}" type="button" class="btn btn-secondary me-2">Cancel</a>
-                <button type="submit" class="btn btn-primary">Update Post</button>
-            </div>
-            <br><br>
-        </form>
+        </div>
+    </form>
     </div>
- </main>   
 @endsection

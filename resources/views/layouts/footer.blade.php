@@ -22,20 +22,24 @@
 
             <div class="col-12 col-md-6 col-lg-2 footer-links">
                 <h6>Useful Links</h6>
-                <a href="{{ route('aboutUs') }}">About Us</a>
-                <a href="{{ route('user.travelPackage.show') }}">Nepal Tours</a>
-                <a href="#">Client Reviews</a>
-                <a href="#">Plan Your Trip</a>
-                <a href="{{ route('blog') }}">Blog</a>
+                <div class="d-flex flex-column">
+                    <a href="{{ route('aboutUs') }}">About Us</a>
+                    <a href="{{ route('user.travelPackage.show') }}">Nepal Tours</a>
+                    <a href="#">Client Reviews</a>
+                    <a href="#">Plan Your Trip</a>
+                    <a href="{{ route('blog') }}">Blog</a>
+                </div>
             </div>
 
             <div class="col-12 col-md-6 col-lg-3 footer-links">
                 <h6>Explore</h6>
-                <a href="#">Outbound Tours</a>
-                <a href="#">Photo Gallery</a>
-                <a href="#">Customize Trip</a>
-                <a href="#">FAQs</a>
-                <a href="{{ route('contactUs') }}">Contact Us</a>
+                <div class="d-flex flex-column">
+                    <a href="#">Outbound Tours</a>
+                    <a href="#">Photo Gallery</a>
+                    <a href="#">Customize Trip</a>
+                    <a href="#">FAQs</a>
+                    <a href="{{ route('contactUs') }}">Contact Us</a>
+                </div>
             </div>
 
             <div class="col-12 col-lg-3">
@@ -62,7 +66,8 @@
         </div>
 
         <div class="mt-4 pt-3" style="border-top: 1px solid rgba(255,255,255,0.16);">
-            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2" style="color: rgba(255,255,255,0.78);">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2"
+                style="color: rgba(255,255,255,0.78);">
                 <div>© {{ date('Y') }} NauloYatra Tours &amp; Travels. All rights reserved.</div>
                 <div class="d-flex gap-3 footer-links">
                     <a href="#">Privacy Policy</a>
